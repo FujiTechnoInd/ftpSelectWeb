@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -121,4 +122,65 @@
     <script src="app.js" defer></script>
 
 </body>
+=======
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTP選定ツール</title>
+    <!-- Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Interフォントの読み込み --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN --><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Local CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-100 min-h-screen md:p-8">
+
+    <div class="max-w-7xl mx-auto bg-white shadow-xl overflow-hidden rounded-2xl">
+        
+        <!-- 上部テキスト --><div id="header-title" class="text-lg p-4 bg-slate-50 text-gray-700 font-semibold text-center rounded-t-2xl md:text-xl transition-colors duration-300">
+            ご希望の最大吐出量に適したシリーズを選択してください。
+        </div>
+
+        <!-- 1. 製品カテゴリ コンテナ --><div id="product-container" class="w-full">
+            <!-- 製品はJSによってここに動的に生成されます --></div> <!-- /product-container --></div>
+
+    <!-- フッター --><div id="model-footer-container" class="model-footer" style="display: none;">
+        <span class="model-footer-title">選択中の型式</span>
+        <div id="model-display-clickable" class="model-display-clickable-wrapper">
+            <div class="model-display-wrapper">
+                <span class="model-static">FTP-</span>
+                <span id="model-part-1"></span>
+                <span id="model-part-2"></span>
+                <span id="model-part-3"></span>
+                <span id="model-part-4"></span>
+                <span id="model-part-5"></span>
+                <span id="model-part-6"></span>
+                <span id="model-part-7"></span>
+                <span id="model-part-8"></span>
+                <span id="model-part-9"></span>
+                <span id="model-part-10"></span>
+                <span id="model-part-11"></span> 
+            </div>
+            <svg class="footer-chevron-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+        </div>
+    </div>
+    
+    <div id="model-dropdown-modal" class="model-dropdown-overlay" style="display: none;">
+        <div class="model-dropdown-content">
+            <h3 id="model-dropdown-title">型式を選択</h3>
+            <div id="model-dropdown-list">
+                <!-- JSで挿入 -->
+            </div>
+            <button id="model-dropdown-close" class="model-dropdown-close-btn">閉じる</button>
+        </div>
+    </div>
+
+    <script src="productData.js" defer></script>
+    <script src="app.js" defer></script>
+
+</body>
+>>>>>>> 638f76a6992a104022626c41b12830dc1671085b
 </html>
