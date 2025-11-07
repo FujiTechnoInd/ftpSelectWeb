@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTP選定ツール</title>
+    <!-- Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Interフォントの読み込み --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- ★新規: 3Dビューアライブラリ -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    <!-- Chart.js CDN --><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Local CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-100 min-h-screen md:p-8">
+
+    <div class="max-w-7xl mx-auto bg-white shadow-xl overflow-hidden rounded-2xl">
+        
+        <!-- 上部テキスト --><div id="header-title" class="text-lg p-4 bg-slate-50 text-gray-700 font-semibold text-center rounded-t-2xl md:text-xl transition-colors duration-300">
+            ご希望の最大吐出量に適したシリーズを選択してください。
+        </div>
+
+        <!-- 1. 製品カテゴリ コンテナ --><div id="product-container" class="w-full">
+            <!-- 製品はJSによってここに動的に生成されます --></div> <!-- /product-container --></div>
+
+    <!-- ★新規: 型式一覧選択フローティングボタン -->
+    <button id="quick-select-btn" class="quick-select-button">型式一覧から選択</button>
+
+    <!-- フッター --><div id="model-footer-container" class="model-footer" style="display: none;">
+        <span class="model-footer-title">選択中の型式</span>
+        <div id="model-display-clickable" class="model-display-clickable-wrapper">
+            <div class="model-display-wrapper">
+                <span class="model-static">FTP-</span>
+                <span id="model-part-1"></span>
+                <span id="model-part-2"></span>
+                <span id="model-part-3"></span>
+                <span id="model-part-4"></span>
+                <span id="model-part-5"></span>
+                <span id="model-part-6"></span>
+                <span id="model-part-7"></span>
+                <span id="model-part-8"></span>
+                <span id="model-part-9"></span>
+                <span id="model-part-10"></span>
+                <span id="model-part-11"></span> 
+            </div>
+            <svg class="footer-chevron-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+        </div>
+    </div>
+    
+    <div id="model-dropdown-modal" class="model-dropdown-overlay" style="display: none;">
+        <div class="model-dropdown-content">
+            <h3 id="model-dropdown-title">型式を選択</h3>
+            <div id="model-dropdown-list">
+                <!-- JSで挿入 -->
+            </div>
+            <button id="model-dropdown-close" class="model-dropdown-close-btn">閉じる</button>
+        </div>
+    </div>
+
+    <!-- ★新規: 型式一覧選択モーダル -->
+    <div id="quick-select-modal" class="quick-select-modal-overlay" style="display: none;">
+        <div class="quick-select-modal-content">
+            <div class="quick-select-modal-header">
+                <h3 id="quick-select-modal-title">型式一覧から選択</h3>
+                <button id="quick-select-modal-close" class="quick-select-modal-close-btn">&times;</button>
+            </div>
+            <div class="quick-select-modal-body">
+                <!-- ★新規: カテゴリ選択タブ -->
+                <div id="quick-select-category-tabs" class="quick-select-tabs"></div>
+                <div id="quick-select-subcategory-tabs" class="quick-select-tabs" style="display: none;"></div>
+
+                <!-- ★新規: フィルターと用途トグル -->
+                <div class="flex justify-between items-center mb-4">
+                    <!-- フィルター入力 -->
+                    <div class="relative w-1/3">
+                        <input type="text" id="quick-select-filter-input" placeholder="型式表記で絞り込み..." class="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <span class="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+                        </span>
+                    </div>
+                    <!-- 用途トグル -->
+                    <div id="quick-select-usage-toggle" class="flex items-center space-x-1 p-1 bg-gray-200 rounded-lg">
+                        <button class="quick-select-usage-btn active" data-usage-value="">標準</button>
+                        <button class="quick-select-usage-btn" data-usage-value="WO">燃料油・クーラント用</button>
+                        <button class="quick-select-usage-btn" data-usage-value="PL">液封仕様</button>
+                    </div>
+                </div>
+
+                <table class="quick-select-table">
+                    <thead>
+                        <tr id="quick-select-table-header"></tr>
+                    </thead>
+                    <tbody id="quick-select-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ★新規: 3Dビューアモーダル -->
+    <div id="model-viewer-modal" class="model-viewer-overlay" style="display: none;">
+        <div class="model-viewer-content">
+            <button id="model-viewer-close" class="model-viewer-close-btn">&times;</button>
+            <!-- ★新規: ARモード切り替えスイッチ -->
+            <div class="ar-toggle-switch-wrapper">
+                <label class="ar-toggle-switch">
+                    <input type="checkbox" id="ar-mode-toggle">
+                    <span class="ar-slider"></span>
+                </label>
+                <span class="ar-toggle-label">ARモード</span>
+            </div>
+            <!-- ★新規: AR表示用のビデオ背景 -->
+            <video id="ar-video-background" autoplay playsinline muted style="display: none;"></video>
+            <!-- ★修正: model-viewerをJSで挿入するためのコンテナ -->
+            <div id="model-viewer-container"></div>
+        </div>
+    </div>
+
+
+    <script src="productData.js" defer></script>
+    <script src="app.js" defer></script>
+
+</body>
+</html>
