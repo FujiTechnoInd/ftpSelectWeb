@@ -1337,7 +1337,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     alt="3D model"
                     ar
                     ar-modes="webxr scene-viewer quick-look"
-                    ar-scale="fixed"
                     ar-placement="floor"
                     camera-controls
                     auto-rotate
