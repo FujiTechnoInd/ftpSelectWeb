@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * 1つの製品カラムのHTMLを生成
      */
     function createProductColumnHTML(product) {
+        // ★追加: バーの幅を調整する係数 (例: 0.8 = 80%)
         const showOptions = product.options.length > 0;
         const optionsClass = showOptions ? 'has-options-true' : 'has-options-false';
         const chartContainerId = `chart-container-${product.id}`;
@@ -49,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </button>`;
         }).join('');
 
-        // ★ 修正: レイアウト反転 + 詳細コンテナ + トグルスイッチ
+        // レイアウト反転 + 詳細コンテナ + トグルスイッチ
         return `
         <div class="capacity-column col-${product.id} border-b border-gray-200 ${optionsClass}">
             
@@ -207,14 +208,15 @@ document.addEventListener('DOMContentLoaded', () => {
      * currentModelを初期状態にリセットする
      */
     function resetCurrentModel() {
+        // 以前の状態を保持せず、完全に新しいオブジェクトで初期化する
         currentModel = {
             base: null, id: null, chartSelection: null,
             optionL1: null, optionL2: null, optionL3: null,
-            usage: "S",
-            optionL4_Axis: "S",
-            optionL4_Rotation: "S",
-            optionL4_Seal: "S",
-            optionL4_Relief: "N"
+            usage: "S", // 標準
+            optionL4_Axis: "S", // 標準(平割り)
+            optionL4_Rotation: "S", // 標準(反時計)
+            optionL4_Seal: "S", // 標準(-5～40℃)
+            optionL4_Relief: "N" // なし
         };
     }
 
@@ -496,18 +498,20 @@ document.addEventListener('DOMContentLoaded', () => {
         let textsHTML = '';
         
         // 3. グラフ本体 (Path) の描画
-        datasets.forEach(ds => {
+        // ★ 修正: isCrowdedの条件を緩和し、3H(4データ)なども対象にする
+        const isCrowded = datasets.length > 3; 
+        let textYOffset = 0; // 縦方向のオフセット
+
+        datasets.forEach((ds, index) => {
             const label = ds.label;
             const data = ds.data;
             const color = ds.backgroundColor;
-            const borderColor = ds.borderColor;
 
             const isHorizontalArea = data.every(d => d.y === data[0].y);
-            
+
             let d;
             let textX, textY;
-            let pathClass = "svg-chart-area"; // デフォルト (エリアグラフ)
-            let pathStyle = `fill="${color}"; stroke: ${borderColor};`;
+            const pathStyle = `fill="${color}"; stroke: ${ds.borderColor};`;
 
             if (isHorizontalArea) {
                 const x1 = scaleX(data[0].x);
@@ -515,7 +519,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const yLine = scaleY(data[0].y); 
                 d = `M ${x1} ${yBottom} L ${x1} ${yLine} L ${x2} ${yLine} L ${x2} ${yBottom} Z`;
                 textX = (x1 + x2) / 2;
-                textY = yLine + (yBottom - yLine) / 2 + 6; 
+                // ★ 修正: isFirstOrLast条件を削除し、常に交互にずらす
+                if (isCrowded) {
+                    // 交互にオフセットを切り替える
+                    textYOffset = textYOffset >= 0 ? -20 : 20;
+                    textY = yLine + (yBottom - yLine) / 2 + 6 + textYOffset;
+                } else {
+                    textY = yLine + (yBottom - yLine) / 2 + 6; // 通常の位置
+                }
             } else {
                 // 線グラフ
                 const points = data.map(d => `${scaleX(d.x)} ${scaleY(d.y)}`).join(' L ');
@@ -989,8 +1000,9 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // --- (A-1) 製品カラム (写真) のクリック ---
             const clickableArea = e.target.closest('.product-button-wrapper');
-            if (clickableArea) {
-                handleProductColumnClick(clickableArea.closest('.capacity-column')); // 修正済み
+            const productColumn = clickableArea?.closest('.capacity-column');
+            if (productColumn) {
+                handleProductColumnClick(productColumn);
                 return; // 他のクリックイベントと重複させない
             }
 
@@ -1026,16 +1038,16 @@ document.addEventListener('DOMContentLoaded', () => {
             // --- (A-2) オプションボタン (L1, L2, トグル) のクリック ---
             const currentActiveColumn = document.querySelector('.capacity-column.column-active');
             if (!currentActiveColumn) return; 
-
+    
             const product = productData.find(p => p.id === currentModel.id);
             if (!product) return;
             
             // --- トグルスイッチ (Usage) ---
             const toggleInput = e.target.closest('.usage-toggle-input:not(.l4-toggle)');
             if (toggleInput) {
-                currentModel.usage = toggleInput.checked ? "WO" : "S"; 
+                currentModel.usage = toggleInput.checked ? "WO" : "S";
                 // ラベルのアクティブ状態を更新
-                const wrapper = toggleInput.closest('.usage-toggle-switch-wrapper');
+                const wrapper = toggleInput.closest('.usage-toggle-switch-wrapper'); // wrapperを取得
                 wrapper.querySelector('.usage-toggle-label[data-value="S"]').classList.toggle('active', currentModel.usage === 'S');
                 wrapper.querySelector('.usage-toggle-label[data-value="WO"]').classList.toggle('active', currentModel.usage === 'WO');
 
@@ -1046,10 +1058,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // --- レベル1 ボタン (ポンプ単体 など) ---
             const l1Button = e.target.closest('.option-level-1-button');
             if (l1Button) {
-                const optionIndex = parseInt(l1Button.dataset.optionIndex, 10);
-                const selectedOption = { ...product.options[optionIndex], optionIndex }; 
+                const optionIndex = parseInt(l1Button.dataset.optionIndex, 10); // indexを取得
+                const selectedOption = { ...product.options[optionIndex], optionIndex };
                 const isActive = l1Button.classList.contains('active');
-                
+
                 currentActiveColumn.querySelectorAll('.option-level-1-button').forEach(btn => btn.classList.remove('active'));
                 
                 const l2Div = currentActiveColumn.querySelector('.options-level-2');
@@ -1057,7 +1069,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const subOptionsContainer = currentActiveColumn.querySelector('.sub-options-container');
                 l2Div.innerHTML = '';
                 l3Div.innerHTML = '';
-                subOptionsContainer.style.display = 'none';
+                if (subOptionsContainer) subOptionsContainer.style.display = 'none';
 
                 clearProductDetails(currentModel.id);
                 // ★ 新規: L4 オプションもリセット
@@ -1068,13 +1080,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 // ★ 新規: L4 ドロップダウンの見た目もリセット
                 const l4Container = currentActiveColumn.querySelector('.options-level-4-container');
                 if (l4Container) {
-                        l4Container.querySelectorAll('.l4-dropdown-button span').forEach(span => {
-                            const defaultItem = span.closest('.l4-dropdown-wrapper').querySelector('.l4-dropdown-item[data-value="S"], .l4-dropdown-item[data-value="N"]');
-                            if(defaultItem) span.textContent = defaultItem.textContent;
-                        });
-                        l4Container.querySelectorAll('.l4-dropdown-item').forEach(item => item.classList.remove('active'));
-                        l4Container.querySelectorAll('.l4-dropdown-item[data-value="S"]').forEach(item => item.classList.add('active'));
-                        l4Container.querySelectorAll('.l4-dropdown-item[data-value="N"]').forEach(item => item.classList.add('active'));
+                    l4Container.querySelectorAll('.l4-dropdown-button span').forEach(span => {
+                        const defaultItem = span.closest('.l4-dropdown-wrapper')?.querySelector('.l4-dropdown-item[data-value="S"], .l4-dropdown-item[data-value="N"]');
+                        if (defaultItem) span.textContent = defaultItem.textContent;
+                    });
+                    l4Container.querySelectorAll('.l4-dropdown-item').forEach(item => item.classList.remove('active'));
+                    l4Container.querySelectorAll('.l4-dropdown-item[data-value="S"]').forEach(item => item.classList.add('active'));
+                    l4Container.querySelectorAll('.l4-dropdown-item[data-value="N"]').forEach(item => item.classList.add('active'));
                 }
                 // currentModelリセット
                 currentModel.optionL1 = null;
@@ -1107,11 +1119,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const selectedL1Option = currentModel.optionL1;
                 if (!selectedL1Option) return; 
-                
+
                 const selectedL2Option = { ...selectedL1Option.subOptions[subOptionIndex], optionIndex: subOptionIndex };
                 const isActive = l2Button.classList.contains('active');
 
-                const container = l2Button.closest('.options-level-2');
+                const container = l2Button.closest('.options-level-2'); // containerを取得
                 container.querySelectorAll('.option-L2-button').forEach(btn => btn.classList.remove('active'));
                 
                 const l3Div = currentActiveColumn.querySelector('.options-level-3');
@@ -1146,11 +1158,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const selectedL2Option = currentModel.optionL2;
                 if (!selectedL2Option || !selectedL2Option.additionalSubOptions) return;
-                
+
                 const selectedL3Option = selectedL2Option.additionalSubOptions[subOptionIndex];
                 
-                const container = l3Button.closest('.options-level-3');
-                container.querySelectorAll('.option-L3-button').forEach(btn => btn.classList.remove('active'));
+                const container = l3Button.closest('.options-level-3'); // containerを取得
+                if (container) container.querySelectorAll('.option-L3-button').forEach(btn => btn.classList.remove('active'));
                 
                 currentModel.optionL3 = null;
 
@@ -1174,7 +1186,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
                 // クリックしたドロップダウンのリストを開閉
-                const list = l4Button.nextElementSibling;
+                const list = l4Button.nextElementSibling; // listを取得
                 list.style.display = list.style.display === 'block' ? 'none' : 'block';
                 return;
             }
@@ -1183,7 +1195,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const l4Item = e.target.closest('.l4-dropdown-item');
             if (l4Item) {
                 const value = l4Item.dataset.value;
-                const wrapper = l4Item.closest('.l4-dropdown-wrapper');
+                const wrapper = l4Item.closest('.l4-dropdown-wrapper'); // wrapperを取得
                 const button = wrapper.querySelector('.l4-dropdown-button');
                 const type = button.dataset.l4Type; // Axis, Rotation, Seal, Relief
                 
@@ -1198,22 +1210,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 l4Item.classList.add('active');
                 
                 // リストを閉じる
-                l4Item.closest('.l4-dropdown-list').style.display = 'none';
+                if (l4Item.closest('.l4-dropdown-list')) l4Item.closest('.l4-dropdown-list').style.display = 'none';
 
                 // --- ★ 修正: 連動ロジック (Rotation と Relief) ---
                 if (type === 'Rotation' && value === 'R') {
                     if (currentModel.optionL4_Relief === 'VB') {
                         currentModel.optionL4_Relief = 'N'; // 標準に戻す
-                        const reliefWrapper = currentActiveColumn.querySelector(`button[data-l4-type="Relief"]`).closest('.l4-dropdown-wrapper');
-                        reliefWrapper.querySelector('span').textContent = "なし";
-                        reliefWrapper.querySelectorAll('.l4-dropdown-item').forEach(item => item.classList.remove('active'));
-                        reliefWrapper.querySelector('.l4-dropdown-item[data-value="N"]').classList.add('active');
+                        const reliefWrapper = currentActiveColumn.querySelector(`button[data-l4-type="Relief"]`)?.closest('.l4-dropdown-wrapper');
+                        if (reliefWrapper) {
+                            reliefWrapper.querySelector('span').textContent = "なし";
+                            reliefWrapper.querySelectorAll('.l4-dropdown-item').forEach(item => item.classList.remove('active'));
+                            reliefWrapper.querySelector('.l4-dropdown-item[data-value="N"]')?.classList.add('active');
+                        }
                     }
                 }
                 if (type === 'Relief' && value === 'VB') {
-                        if (currentModel.optionL4_Rotation === 'R') {
+                    if (currentModel.optionL4_Rotation === 'R') {
                         currentModel.optionL4_Rotation = 'S'; // 標準に戻す
-                        const rotWrapper = currentActiveColumn.querySelector(`button[data-l4-type="Rotation"]`).closest('.l4-dropdown-wrapper');
+                        const rotWrapper = currentActiveColumn.querySelector(`button[data-l4-type="Rotation"]`)?.closest('.l4-dropdown-wrapper');
                         rotWrapper.querySelector('span').textContent = "標準(反時計)";
                         rotWrapper.querySelectorAll('.l4-dropdown-item').forEach(item => item.classList.remove('active'));
                         rotWrapper.querySelector('.l4-dropdown-item[data-value="S"]').classList.add('active');
@@ -1291,74 +1305,104 @@ document.addEventListener('DOMContentLoaded', () => {
         const modal = document.getElementById('model-viewer-modal');
         const closeBtn = document.getElementById('model-viewer-close');
         const viewerContainer = document.getElementById('model-viewer-container');
-        const arToggle = document.getElementById('ar-mode-toggle');
-        const videoBackground = document.getElementById('ar-video-background');
+        const dimensionToggle = document.getElementById('ar-mode-toggle'); // これは寸法表示トグル
+
+        // --- QRコードモーダル関連要素 ---
+        const qrModal = document.getElementById('qr-code-modal');
+        const qrCloseBtn = document.getElementById('qr-code-close-btn');
+        const qrImage = document.getElementById('qr-code-image');
+        const qrLink = document.getElementById('qr-code-link');
+
+        // --- デバイス判定 ---
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
         let currentModelSrc = '';
-        let videoStream = null;
 
         window.openModelViewer = (src) => {
-            currentModelSrc = src;
-            arToggle.checked = false; // デフォルトはARオフ
-            videoBackground.style.display = 'none';
+            // ★★★ 要望対応: 寸法付きサンプルモデルに強制的に置き換える ★★★
+            currentModelSrc = src; // 引数で渡されたsrcを使用するように修正
+            dimensionToggle.checked = false; // デフォルトは寸法表示オフ
+
             renderModelViewer();
             modal.style.display = 'flex';
         };
 
-        const renderModelViewer = (isArMode = false) => {
-            const bgColor = isArMode ? 'transparent' : '#f0f0f0'; // ARモードなら背景透明
+        const renderModelViewer = () => {
+            // ★修正: 背景を透明に
+            const bgColor = 'transparent'; 
             viewerContainer.innerHTML = `
-                <model-viewer src="${currentModelSrc}"
-                              alt="3D model"
-                              auto-rotate
-                              camera-controls
-                              shadow-intensity="1"
-                              style="width: 100%; height: 100%; --model-viewer-background-color: ${bgColor}; --progress-bar-color: #3b82f6;">
+                <model-viewer 
+                    id="main-viewer"
+                    src="${currentModelSrc}" 
+                    alt="3D model"
+                    ar
+                    ar-modes="webxr scene-viewer quick-look"
+                    ar-scale="fixed"
+                    ar-placement="floor"
+                    camera-controls
+                    auto-rotate
+                    shadow-intensity="1"                    
+                    style="position: relative; z-index: 2; width: 100%; height: 100%; background-color: transparent; --model-viewer-background-color: ${bgColor}; --progress-bar-color: #3b82f6;">
+                    
+                    <!-- ARボタン: スマホの場合はmodel-viewer標準、PCの場合はカスタムボタン -->
+                    ${isMobile ? 
+                        `<button slot="ar-button" class="ar-button">ARで見る</button>` : // Mobile uses model-viewer's native AR button slot
+                        `<button id="pc-ar-button" class="ar-button" style="z-index: 3;">ARで見る</button>` // PC uses a custom button outside the slot
+                    }
                 </model-viewer>
             `;
         };
 
-        const startArMode = async () => {
-            try {
-                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                    alert('お使いのブラウザはカメラ機能に対応していません。');
-                    arToggle.checked = false;
-                    return;
-                }
-                videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-                videoBackground.srcObject = videoStream;
-                videoBackground.style.display = 'block';
-                renderModelViewer(true); // ARモードでビューアを再描画
-            } catch (err) {
-                console.error("カメラへのアクセスに失敗しました:", err);
-                alert('カメラへのアクセスが拒否されたか、カメラが見つかりませんでした。');
-                arToggle.checked = false;
-            }
-        };
-
-        const stopArMode = () => {
-            if (videoStream) {
-                videoStream.getTracks().forEach(track => track.stop());
-                videoStream = null;
-            }
-            videoBackground.style.display = 'none';
-            renderModelViewer(false); // 通常モードでビューアを再描画
-        };
-
         const closeModelViewer = () => {
             modal.style.display = 'none';
-            stopArMode(); // ARモードを停止
             viewerContainer.innerHTML = '';
         };
 
         closeBtn.addEventListener('click', closeModelViewer);
         modal.addEventListener('click', (e) => { if (e.target === modal) closeModelViewer(); });
-        arToggle.addEventListener('change', () => {
-            if (arToggle.checked) {
-                startArMode();
-            } else {
-                stopArMode();
+
+        // PC用のARボタンがクリックされたときの処理
+        viewerContainer.addEventListener('click', (e) => {
+            if (e.target.id === 'pc-ar-button') {
+                // 現在のページのURLにモデルのパスをパラメータとして追加
+                const arUrl = new URL(window.location.href);
+                arUrl.searchParams.set('model', currentModelSrc);
+
+                // QRコードを生成して表示
+                // ★修正: Google Chart APIはサービス終了のため、別のAPI(goqr.me)に切り替え
+                const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(arUrl.href)}`;
+                qrImage.src = qrCodeUrl;
+                qrLink.href = arUrl.href;
+                qrModal.style.display = 'flex';
             }
         });
+
+        // QRコードモーダルを閉じる処理
+        const closeQrModal = () => {
+            qrModal.style.display = 'none';
+        };
+        qrCloseBtn.addEventListener('click', closeQrModal);
+        qrModal.addEventListener('click', (e) => {
+            if (e.target === qrModal) {
+                closeQrModal();
+            }
+        });
+
+        // 寸法表示トグル
+        dimensionToggle.addEventListener('change', () => {
+            const viewer = viewerContainer.querySelector('model-viewer');
+            // スマホのARモード中でない場合のみ寸法表示をトグルする
+            if (viewer && !viewer.arActive) {
+                viewer.toggleAttribute('show-dimensions', dimensionToggle.checked);
+            }
+        });
+
+        // ページ読み込み時にURLパラメータをチェックして3Dビューアを開く
+        const urlParams = new URLSearchParams(window.location.search);
+        const modelToLoad = urlParams.get('model');
+        if (modelToLoad) {
+            openModelViewer(modelToLoad);
+        }
     }
 
     /**
@@ -1374,17 +1418,38 @@ document.addEventListener('DOMContentLoaded', () => {
         const filterInput = document.getElementById('quick-select-filter-input');
         const usageToggleContainer = document.getElementById('quick-select-usage-toggle');
 
+        // ★新規: 画像プレビュー用の要素を生成してモーダルに追加
+        const imagePreview = document.createElement('div');
+        imagePreview.id = 'quick-select-image-preview';
+        // ★修正: スタイル指定を修正し、競合を回避します
+        imagePreview.className = 'hidden absolute z-50 bg-white border border-gray-300 rounded-lg shadow-xl pointer-events-none flex items-center justify-center';
+        imagePreview.style.setProperty('width', '150px', 'important');
+        imagePreview.style.setProperty('height', '150px', 'important');
+        imagePreview.style.setProperty('padding', '0.5rem', 'important');
+        // ★修正: imgタグのスタイルを修正します
+        imagePreview.innerHTML = `<img src="" alt="Product Preview" style="width: 100%; height: 100%; object-fit: contain;">`;
+        modal.appendChild(imagePreview);
+        const imagePreviewImg = imagePreview.querySelector('img');
+
+
         let currentTableData = []; // 現在テーブルに表示されているデータの配列
 
         // モーダルを開く
         openBtn.addEventListener('click', () => {
+            // ★修正: '.bg-white' セレクタがプレビュー要素と競合しないように、より具体的なセレクタに変更します
+            const modalContent = modal.querySelector('.quick-select-modal-content');
+            if (modalContent) {
+                modalContent.style.width = '1200px';
+                modalContent.style.height = '80vh';
+            }
+
             initializeModalView();
             modal.style.display = 'flex';
         });
 
-        // モーダルを閉じる
         const closeModal = () => {
             modal.style.display = 'none';
+            imagePreview.classList.add('hidden'); // ★新規: モーダルを閉じるときにプレビューも隠す
         };
         closeBtn.addEventListener('click', closeModal);
         modal.addEventListener('click', (e) => {
@@ -1636,6 +1701,47 @@ document.addEventListener('DOMContentLoaded', () => {
                 const row = e.target.closest('tr');
                 updateQuickSelectCodeDisplay(row);
             }
+        });
+
+        // ★新規: テーブル行ホバー時の画像プレビュー処理
+        tableBody.addEventListener('mouseover', (e) => {
+            const row = e.target.closest('tr');
+            if (!row || !row.dataset.index) return;
+
+            const index = parseInt(row.dataset.index, 10);
+            const item = currentTableData[index];
+            if (!item) return;
+
+            const product = productData.find(p => p.id === item.series);
+            if (product && product.imageSrc) {
+                imagePreviewImg.src = product.imageSrc;
+                imagePreview.classList.remove('hidden');
+            }
+        });
+
+        tableBody.addEventListener('mouseout', (e) => {
+            const row = e.target.closest('tr');
+            if (!row) return;
+            imagePreview.classList.add('hidden');
+        });
+
+        tableBody.addEventListener('mousemove', (e) => {
+            if (imagePreview.classList.contains('hidden')) return;
+
+            const previewWidth = imagePreview.offsetWidth;
+            const offset = 100; // 指定のオフセット値
+
+            // 基本位置をカーソルの右下に設定
+            let x = e.clientX + offset;
+            let y = e.clientY - offset;
+
+            // 画面の右端からはみ出る場合は、カーソルの左側に表示を切り替え
+            if (x + previewWidth > window.innerWidth) {
+                x = e.clientX - previewWidth - offset;
+            }
+
+            imagePreview.style.left = `${x}px`;
+            imagePreview.style.top = `${y}px`;
         });
 
         /**

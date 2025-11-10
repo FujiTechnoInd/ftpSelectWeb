@@ -23,7 +23,7 @@
             <!-- 製品はJSによってここに動的に生成されます --></div> <!-- /product-container --></div>
 
     <!-- ★新規: 型式一覧選択フローティングボタン -->
-    <button id="quick-select-btn" class="quick-select-button">型式一覧から選択</button>
+    <button type="button" id="quick-select-btn" class="quick-select-button">型式一覧から選択</button>
 
     <!-- フッター --><div id="model-footer-container" class="model-footer" style="display: none;">
         <span class="model-footer-title">選択中の型式</span>
@@ -54,7 +54,7 @@
             <div id="model-dropdown-list">
                 <!-- JSで挿入 -->
             </div>
-            <button id="model-dropdown-close" class="model-dropdown-close-btn">閉じる</button>
+            <button type="button" id="model-dropdown-close" class="model-dropdown-close-btn">閉じる</button>
         </div>
     </div>
 
@@ -63,7 +63,7 @@
         <div class="quick-select-modal-content">
             <div class="quick-select-modal-header">
                 <h3 id="quick-select-modal-title">型式一覧から選択</h3>
-                <button id="quick-select-modal-close" class="quick-select-modal-close-btn">&times;</button>
+                <button type="button" id="quick-select-modal-close" class="quick-select-modal-close-btn">&times;</button>
             </div>
             <div class="quick-select-modal-body">
                 <!-- ★新規: カテゴリ選択タブ -->
@@ -81,9 +81,9 @@
                     </div>
                     <!-- 用途トグル -->
                     <div id="quick-select-usage-toggle" class="flex items-center space-x-1 p-1 bg-gray-200 rounded-lg">
-                        <button class="quick-select-usage-btn active" data-usage-value="">標準</button>
-                        <button class="quick-select-usage-btn" data-usage-value="WO">燃料油・クーラント用</button>
-                        <button class="quick-select-usage-btn" data-usage-value="PL">液封仕様</button>
+                        <button type="button" class="quick-select-usage-btn active" data-usage-value="">標準</button>
+                        <button type="button" class="quick-select-usage-btn" data-usage-value="WO">燃料油・クーラント用</button>
+                        <button type="button" class="quick-select-usage-btn" data-usage-value="PL">液封仕様</button>
                     </div>
                 </div>
 
@@ -100,19 +100,29 @@
     <!-- ★新規: 3Dビューアモーダル -->
     <div id="model-viewer-modal" class="model-viewer-overlay" style="display: none;">
         <div class="model-viewer-content">
-            <button id="model-viewer-close" class="model-viewer-close-btn">&times;</button>
-            <!-- ★新規: ARモード切り替えスイッチ -->
+            <button type="button" id="model-viewer-close" class="model-viewer-close-btn">&times;</button>
+            <!-- 寸法表示トグル -->
             <div class="ar-toggle-switch-wrapper">
                 <label class="ar-toggle-switch">
                     <input type="checkbox" id="ar-mode-toggle">
                     <span class="ar-slider"></span>
                 </label>
-                <span class="ar-toggle-label">ARモード</span>
+                <span class="ar-toggle-label">寸法を表示</span>
             </div>
-            <!-- ★新規: AR表示用のビデオ背景 -->
-            <video id="ar-video-background" autoplay playsinline muted style="display: none;"></video>
             <!-- ★修正: model-viewerをJSで挿入するためのコンテナ -->
             <div id="model-viewer-container"></div>
+        </div>
+    </div>
+
+    <!-- ★新規: QRコード表示用モーダル -->
+    <div id="qr-code-modal" class="qr-code-modal-overlay">
+        <div class="qr-code-modal-content">
+            <button type="button" id="qr-code-close-btn" class="model-viewer-close-btn" style="top: 1rem; right: 1rem;">&times;</button>
+            <h4>スマートフォンでAR表示</h4>
+            <p>お使いのスマートフォンのカメラで下のQRコードを読み取ってください。</p>
+            <a id="qr-code-link" href="#" target="_blank" rel="noopener noreferrer">
+                <img id="qr-code-image" src="" alt="AR表示用QRコード" class="mx-auto">
+            </a>
         </div>
     </div>
 

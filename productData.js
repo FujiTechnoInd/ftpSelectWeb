@@ -15,7 +15,7 @@ const productData = [
         colorClass: "text-pump-lighterBlue",
         ringColor: "#cce7ff",
         capacitySpec: "4.5L まで",
-        capacityPercent: "20%",
+        capacityPercent: "16%",
         charts: {
             chart1: {
                 label: "ご希望の性能に適した型式を選択してください", 
@@ -52,7 +52,7 @@ const productData = [
         options: [],
         // 1RAの詳細データ
         details: {
-            model3dSrc: "3D/Car.glb", // ★テスト用3Dモデル
+            model3dSrc: "image/3D/DamagedHelmet.glb",
             dimensionImageSrc: "https://lh3.googleusercontent.com/d/17sH1rf-gis2HNazVn-J9i2wSlGthrIvG", // 1RA 図面
             specTable: [
                 { model: "100", volume: 1.16, flow1500: 1.74, flow1800: 2.08, pressure: 0.5, speed: 2000, weight: 1.1 },
@@ -88,7 +88,7 @@ const productData = [
         colorClass: "text-pump-lightBlue",
         ringColor: "#add8e6",
         capacitySpec: "8.1L まで",
-        capacityPercent: "35%",
+        capacityPercent: "28%",
         charts: { 
             chart1: {
                 label: "ご希望の性能に適した型式を選択してください",
@@ -109,12 +109,12 @@ const productData = [
                 modelConfig: { part3: null, part4: "A", part5: null, part6: null, part7: null, part11: null },
                 subOptions: [], // L2 オプションはなし
                 imageSrc: "https://lh3.googleusercontent.com/d/1AyvbUYDkMSd0yGd5_lhlQpX2a7Zo-S2C", 
-                // ★ 新規: L4オプション用の詳細データを定義
+                // L4オプション用の詳細データを定義
                 l4_details: {
                     Relief: { // リリーフバルブ
                         VB: { dimensionImageSrc: "https://lh3.googleusercontent.com/d/12MeCSg6gpCdz49odXqKKeB7Rbcm0tdq4" }
                     },
-                    Rotation: { // ★ 新規: 回転方向
+                    Rotation: { // 回転方向
                         R: { dimensionImageSrc: "https://lh3.googleusercontent.com/d/1S78oib2w72nmmZ9vT8HlYRoLnjYKtfAp" }
                     }
                 },
@@ -206,24 +206,25 @@ const productData = [
     {
         id: "2A",
         name: "2A",
-        imageSrc: "https://lh3.googleusercontent.com/d/1bb1Ne5IkZxEliA29xWxNoJE3BeMCfg-d",
+        imageSrc: "image/product/2A.png",
         colorClass: "text-pump-lightGreen",
         ringColor: "#90ee90",
         capacitySpec: "36L まで",
-        capacityPercent: "50%",
-        charts: {
+        capacityPercent: "40%",
+        charts: { 
             chart1: {
-                label: "ご希望の性能に適した型式を選択してください", 
+                label: "ご希望の性能に適した型式を選択してください",
                 xAxisLabel: "最大吐出量(L/min)", 
                 yAxisLabel: "最大吐出圧力(MPa)", 
-                datasets: [{ 
-                    label: "2A",
-                    data: [{x: 0, y: 1.2}, {x: 20, y: 1.0}, {x: 30, y: 0.8}, {x: 40, y: 0.5}],
-                    borderColor: 'rgb(59, 130, 246)',
-                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                    fill: true,
-                    tension: 0.1
-                }]
+                datasets: [
+                    { label: "204A", data: [{x: 5, y: 3}, {x: 7.2, y: 3}], borderColor: 'rgb(59, 130, 246)', backgroundColor:'rgba(59, 130, 246, 0.2)', fill: true },
+                    { label: "206A", data: [{x: 7.2, y: 2.5}, {x: 10.8, y: 2.5}], borderColor: 'rgb(234, 179, 8)', backgroundColor: 'rgba(234, 179, 8, 0.2)', fill: true },
+                    { label: "208A", data: [{x: 10.8, y: 2.5}, {x: 14.4, y: 2.5}], borderColor: 'rgb(34, 197, 94)', backgroundColor: 'rgba(34, 197, 94, 0.2)', fill: true },
+                    { label: "210A", data: [{x: 14.4, y: 2.5}, {x: 18.8, y: 2.5}], borderColor: 'rgb(239, 68, 68)', backgroundColor: 'rgba(239, 68, 68, 0.2)', fill: true },
+                    { label: "212A", data: [{x: 18.8, y: 2.0}, {x: 21.6, y: 2.0}], borderColor: 'rgb(168, 85, 247)', backgroundColor: 'rgba(168, 85, 247, 0.2)', fill: true },
+                    { label: "216A", data: [{x: 21.6, y: 1.5}, {x: 28.8, y: 1.5}], borderColor: 'rgb(236, 72, 153)', backgroundColor: 'rgba(236, 72, 153, 0.2)', fill: true },
+                    { label: "220A", data: [{x: 28.8, y: 1.2}, {x: 36.0, y: 1.2}], borderColor: 'rgb(249, 115, 22)', backgroundColor: 'rgba(249, 115, 22, 0.2)', fill: true }
+                ]
             }
         },
         options: [ 
@@ -231,9 +232,44 @@ const productData = [
                 name: CONSTANTS.OPTION_TYPE.PUMP_ONLY, 
                 enabled: true, 
                 modelConfig: { part3: null, part4: "A", part5: null, part6: null, part7: null, part11: null },
-                subOptions: [],
-                imageSrc: "https://placehold.co/800x600/90ee90/006400?text=2A+PUMP+ONLY", 
-                details: "USE_1RA_DETAILS", 
+                subOptions: [], // L2 オプションはなし
+                imageSrc: "image/product/2A.png",
+                // L4オプション用の詳細データを定義
+                l4_details: {
+                    Relief: { // リリーフバルブ
+                        VB: { dimensionImageSrc: "https://lh3.googleusercontent.com/d/12MeCSg6gpCdz49odXqKKeB7Rbcm0tdq4" }
+                    },
+                    Rotation: { // 回転方向
+                        R: { dimensionImageSrc: "https://lh3.googleusercontent.com/d/1S78oib2w72nmmZ9vT8HlYRoLnjYKtfAp" }
+                    }
+                },
+                details: { // ★ 1A ポンプ単体の詳細
+                    dimensionImageSrc: "https://lh3.googleusercontent.com/d/1WZvsqbh6VYjR4eKFlSbNAt6ukA_h9rvc", // 1A ポンプ単体 図面 (仮)
+                    specTable: [
+                        { model: "10A", volume: 0.8, flow1500: 1.2, flow1800: 1.4, pressure: 0.5, speed: 3000, weight: 0.5 },
+                        { model: "11A", volume: 1.5, flow1500: 2.2, flow1800: 2.7, pressure: 0.5, speed: 2000, weight: 0.51 },
+                        { model: "12A", volume: 2.5, flow1500: 3.7, flow1800: 4.5, pressure: 0.5, speed: 1800, weight: 0.57 },
+                        { model: "13A", volume: 4.5, flow1500: 6.7, flow1800: 8.1, pressure: 0.5, speed: 1800, weight: 0.76 }
+                    ],
+                    flowChart: { 
+                        label: "流量特性 (1450min-1)", xAxisLabel: "圧力(MPa)", yAxisLabel: "吐出量(L/min)",
+                        datasets: [
+                            { label: "10A", data: [{x: 0.1, y: 1.18}, {x: 0.2, y: 1.17}, {x: 0.3, y: 1.17}, {x: 0.4, y: 1.16}, {x: 0.5, y: 1.16}], borderColor: 'rgb(59, 130, 246)', backgroundColor: 'rgba(59, 130, 246, 0.2)', fill: false }, 
+                            { label: "11A", data: [{x: 0.1, y: 2.21}, {x: 0.2, y: 2.16}, {x: 0.3, y: 2.12}, {x: 0.4, y: 2.07}, {x: 0.5, y: 2.03}], borderColor: 'rgb(234, 179, 8)', backgroundColor: 'rgba(234, 179, 8, 0.2)', fill: false }, 
+                            { label: "12A", data: [{x: 0.1, y: 3.58}, {x: 0.2, y: 3.50}, {x: 0.3, y: 3.43}, {x: 0.4, y: 3.36}, {x: 0.5, y: 3.29}], borderColor: 'rgb(34, 197, 94)', backgroundColor: 'rgba(34, 197, 94, 0.2)', fill: false }, 
+                            { label: "13A", data: [{x: 0.1, y: 6.68}, {x: 0.2, y: 6.55}, {x: 0.3, y: 6.43}, {x: 0.4, y: 6.31}, {x: 0.5, y: 6.19}], borderColor: 'rgb(239, 68, 68)', backgroundColor: 'rgba(239, 68, 68, 0.2)', fill: false } 
+                        ]
+                    },
+                    powerChart: { 
+                        label: "所要電力 (1450min-1)", xAxisLabel: "圧力(MPa)", yAxisLabel: "軸電力(W)",
+                        datasets: [
+                            { label: "10A", data: [{x: 0.1, y: 37}, {x: 0.2, y: 41}, {x: 0.3, y: 45}, {x: 0.4, y: 49}, {x: 0.5, y: 52}], borderColor: 'rgb(59, 130, 246)', backgroundColor: 'rgba(59, 130, 246, 0.2)', fill: false }, 
+                            { label: "11A", data: [{x: 0.1, y: 43}, {x: 0.2, y: 48}, {x: 0.3, y: 52}, {x: 0.4, y: 57}, {x: 0.5, y: 62}], borderColor: 'rgb(234, 179, 8)', backgroundColor: 'rgba(234, 179, 8, 0.2)', fill: false }, 
+                            { label: "12A", data: [{x: 0.1, y: 50}, {x: 0.2, y: 59}, {x: 0.3, y: 68}, {x: 0.4, y: 77}, {x: 0.5, y: 88}], borderColor: 'rgb(34, 197, 94)', backgroundColor: 'rgba(34, 197, 94, 0.2)', fill: false }, 
+                            { label: "13A", data: [{x: 0.1, y: 52}, {x: 0.2, y: 75}, {x: 0.3, y: 89}, {x: 0.4, y: 103}, {x: 0.5, y: 117}], borderColor: 'rgb(239, 68, 68)', backgroundColor: 'rgba(239, 68, 68, 0.2)', fill: false } 
+                        ]
+                    },
+                },
                 notes: "単体"
             },
             { 
@@ -299,20 +335,17 @@ const productData = [
         colorClass: "text-pump-purple",
         ringColor: "#d8b4fe",
         capacitySpec: "93.6L まで",
-        capacityPercent: "75%",
-        charts: {
+        capacityPercent: "60%",
+        charts: { 
             chart1: {
-                label: "ご希望の性能に適した型式を選択してください", 
+                label: "ご希望の性能に適した型式を選択してください",
                 xAxisLabel: "最大吐出量(L/min)", 
                 yAxisLabel: "最大吐出圧力(MPa)", 
-                datasets: [{ 
-                    label: "3F",
-                    data: [{x: 0, y: 1.5}, {x: 40, y: 1.2}, {x: 70, y: 1.0}, {x: 95, y: 0.7}],
-                    borderColor: 'rgb(59, 130, 246)',
-                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                    fill: true,
-                    tension: 0.1
-                }]
+                datasets: [
+                    { label: "320F", data: [{x: 35, y: 2.5}, {x: 46.8, y: 2.5}], borderColor: 'rgb(59, 130, 246)', backgroundColor: 'rgba(59, 130, 246, 0.2)', fill: true },
+                    { label: "330F", data: [{x: 46.8, y: 2.5}, {x: 70.2, y: 2.5}], borderColor: 'rgb(234, 179, 8)', backgroundColor: 'rgba(234, 179, 8, 0.2)', fill: true },
+                    { label: "340F", data: [{x: 70.2, y: 2.0}, {x: 93.6, y: 2.0}], borderColor: 'rgb(34, 197, 94)', backgroundColor: 'rgba(34, 197, 94, 0.2)', fill: true },
+                ]
             }
         },
         options: [ 
@@ -388,22 +421,21 @@ const productData = [
         colorClass: "text-pump-blue",
         ringColor: "#2563eb",
         capacitySpec: "117L まで",
-        capacityPercent: "100%",
+        capacityPercent: "80%",
         charts: {
             chart1: {
-                label: "ご希望の性能に適した型式を選択してください", 
+                label: "ご希望の性能に適した型式を選択してください",
                 xAxisLabel: "最大吐出量(L/min)", 
                 yAxisLabel: "最大吐出圧力(MPa)", 
-                datasets: [{ 
-                    label: "3H",
-                    data: [{x: 0, y: 2.0}, {x: 50, y: 1.8}, {x: 80, y: 1.5}, {x: 110, y: 1.0}],
-                    borderColor: 'rgb(59, 130, 246)',
-                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                    fill: true,
-                    tension: 0.1
-                }]
+                datasets: [
+                    { label: "320H", data: [{x: 35, y: 4.0}, {x: 46.8, y: 4.0}], borderColor: 'rgb(59, 130, 246)', backgroundColor: 'rgba(59, 130, 246, 0.2)', fill: true },
+                    { label: "330H", data: [{x: 46.8, y: 4.0}, {x: 70.2, y: 4.0}], borderColor: 'rgb(234, 179, 8)', backgroundColor: 'rgba(234, 179, 8, 0.2)', fill: true },
+                    { label: "340H", data: [{x: 70.2, y: 3.0}, {x: 93.6, y: 3.0}], borderColor: 'rgb(34, 197, 94)', backgroundColor: 'rgba(34, 197, 94, 0.2)', fill: true },
+                    { label: "350H", data: [{x: 93.6, y: 2.0}, {x: 117.0, y: 2.0}], borderColor: 'rgb(239, 68, 68)', backgroundColor: 'rgba(239, 68, 68, 0.2)', fill: true }
+                ]
             }
         },
+
         options: [ 
             { 
                 name: CONSTANTS.OPTION_TYPE.PUMP_ONLY, 
@@ -539,17 +571,17 @@ const quickSelectData = {
         ]
     },
     "ベースカップリング取付型": [
-        { code:"FTP-2MBC[出力](オプション)-204A[用途]", output:[200, 400, 700, 750, 1500], series: "2A", model: "204A", pressure: "3.0MPa", flow: "7.2L", pumpModel: "204A" },
-        { code:"FTP-2MBC[出力](オプション)-206A[用途]", output:[200, 400, 700, 750, 1500], series: "2A", model: "206A", pressure: "2.5MPa", flow: "10.8L", pumpModel: "206A" },
-        { code:"FTP-2MBC[出力](オプション)-208A[用途]", output:[200, 400, 700, 750, 1500], series: "2A", model: "208A", pressure: "2.5MPa", flow: "14.4L", pumpModel: "208A" },
-        { code:"FTP-2MBC[出力](オプション)-210A[用途]", output:[200, 400, 700, 750, 1500], series: "2A", model: "210A", pressure: "2.5MPa", flow: "18.0L", pumpModel: "210A" },
-        { code:"FTP-2MBC[出力](オプション)-212A[用途]", output:[200, 400, 700, 750, 1500], series: "2A", model: "212A", pressure: "2.0MPa", flow: "21.6L", pumpModel: "212A" },
-        { code:"FTP-2MBC[出力](オプション)-216A[用途]", output:[200, 400, 700, 750, 1500], series: "2A", model: "216A", pressure: "1.5MPa", flow: "28.8L", pumpModel: "216A" },
-        { code:"FTP-2MBC[出力](オプション)-220A[用途]", output:[200, 400, 700, 750, 1500], series: "2A", model: "220A", pressure: "1.2MPa", flow: "36.0L", pumpModel: "220A" },
-        { code:"FTP-3MBC[出力]kW(オプション) 320H[用途]", output:[0.75, 1.5, 2.2, 3.7, 5.5], series: "3H", model: "320H", pressure: "4.0MPa", flow: "46.8L", pumpModel: "320H" },
-        { code:"FTP-3MBC[出力]kW(オプション) 330H[用途]", output:[0.75, 1.5, 2.2, 3.7, 5.5], series: "3H", model: "330H", pressure: "4.0MPa", flow: "70.2L", pumpModel: "330H" },
-        { code:"FTP-3MBC[出力]kW(オプション) 340H[用途]", output:[0.75, 1.5, 2.2, 3.7, 5.5], series: "3H", model: "340H", pressure: "3.0MPa", flow: "93.6L", pumpModel: "340H" },
-        { code:"FTP-3MBC[出力]kW(オプション) 350H[用途]", output:[0.75, 1.5, 2.2, 3.7, 5.5], series: "3H", model: "350H", pressure: "2.0MPa", flow: "117.0L", pumpModel: "350H" }
+        { code:"FTP-2MBC[出力](ｵﾌﾟｼｮﾝ)-204A[用途]", output:[200, 400, 700, 750, 1500], series: "2A", model: "204A", pressure: "3.0MPa", flow: "7.2L", pumpModel: "204A" },
+        { code:"FTP-2MBC[出力](ｵﾌﾟｼｮﾝ)-206A[用途]", output:[200, 400, 700, 750, 1500], series: "2A", model: "206A", pressure: "2.5MPa", flow: "10.8L", pumpModel: "206A" },
+        { code:"FTP-2MBC[出力](ｵﾌﾟｼｮﾝ)-208A[用途]", output:[200, 400, 700, 750, 1500], series: "2A", model: "208A", pressure: "2.5MPa", flow: "14.4L", pumpModel: "208A" },
+        { code:"FTP-2MBC[出力](ｵﾌﾟｼｮﾝ)-210A[用途]", output:[200, 400, 700, 750, 1500], series: "2A", model: "210A", pressure: "2.5MPa", flow: "18.0L", pumpModel: "210A" },
+        { code:"FTP-2MBC[出力](ｵﾌﾟｼｮﾝ)-212A[用途]", output:[200, 400, 700, 750, 1500], series: "2A", model: "212A", pressure: "2.0MPa", flow: "21.6L", pumpModel: "212A" },
+        { code:"FTP-2MBC[出力](ｵﾌﾟｼｮﾝ)-216A[用途]", output:[200, 400, 700, 750, 1500], series: "2A", model: "216A", pressure: "1.5MPa", flow: "28.8L", pumpModel: "216A" },
+        { code:"FTP-2MBC[出力](ｵﾌﾟｼｮﾝ)-220A[用途]", output:[200, 400, 700, 750, 1500], series: "2A", model: "220A", pressure: "1.2MPa", flow: "36.0L", pumpModel: "220A" },
+        { code:"FTP-3MBC[出力]kW(ｵﾌﾟｼｮﾝ)-320H[用途]", output:[0.75, 1.5, 2.2, 3.7, 5.5], series: "3H", model: "320H", pressure: "4.0MPa", flow: "46.8L", pumpModel: "320H" },
+        { code:"FTP-3MBC[出力]kW(ｵﾌﾟｼｮﾝ)-330H[用途]", output:[0.75, 1.5, 2.2, 3.7, 5.5], series: "3H", model: "330H", pressure: "4.0MPa", flow: "70.2L", pumpModel: "330H" },
+        { code:"FTP-3MBC[出力]kW(ｵﾌﾟｼｮﾝ)-340H[用途]", output:[0.75, 1.5, 2.2, 3.7, 5.5], series: "3H", model: "340H", pressure: "3.0MPa", flow: "93.6L", pumpModel: "340H" },
+        { code:"FTP-3MBC[出力]kW(ｵﾌﾟｼｮﾝ)-350H[用途]", output:[0.75, 1.5, 2.2, 3.7, 5.5], series: "3H", model: "350H", pressure: "2.0MPa", flow: "117.0L", pumpModel: "350H" }
     ]
 };
 
