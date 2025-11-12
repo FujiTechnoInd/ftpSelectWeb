@@ -1,0 +1,452 @@
+[
+    {
+        "id": "1RA",
+        "name": "1RA",
+        "description": "軽量・コンパクトで安価なポンプ。4.5L/min 0.5MPa以下の使用で作動油・潤滑油の移送に最適です。右回転・左回転とポンプ軸がいずれの方向に回転しても、吸入口と吐出口が一定であることが特徴。ローターの偏心位置を特殊な回転リングを利用し、回転方向に追随させて180度回転させることにより、回転方向に関係なく油の流れ方向を一定にする構造です。",
+        "imageSrc": "image/product/1RA.png",
+        "colorClass": "text-pump-lighterBlue",
+        "ringColor": "#cce7ff",
+        "capacitySpec": "4.5L まで",
+        "capacityPercent": "16%",
+        "charts": {
+            "chart1": {
+                "datasets": [
+                    {
+                        "label": "100",
+                        "data": [{"x": 0, "y": 0.5}, {"x": 2.0, "y": 0.5}],
+                        "borderColor": "rgb(59, 130, 246)",
+                        "backgroundColor": "rgba(59, 130, 246, 0.2)",
+                        "fill": true,
+                        "tension": 0.1
+                    },
+                    {
+                        "label": "200",
+                        "data": [{"x": 2.0, "y": 0.5}, {"x": 3.2, "y": 0.5}],
+                        "borderColor": "rgb(234, 179, 8)",
+                        "backgroundColor": "rgba(234, 179, 8, 0.2)",
+                        "fill": true,
+                        "tension": 0.1
+                    },
+                    {
+                        "label": "300",
+                        "data": [{"x": 3.2, "y": 0.5}, {"x": 4.5, "y": 0.5}],
+                        "borderColor": "rgb(34, 197, 94)",
+                        "backgroundColor": "rgba(34, 197, 94, 0.2)",
+                        "fill": true,
+                        "tension": 0.1
+                    }
+                ]
+            }
+        },
+        "options": [],
+        "details": {
+            "model3dSrc": "image/3D/DamagedHelmet.glb",
+            "dimensionImageSrc": "image/spec/1RA_Spec.png",
+            "specTable": [
+                { "model": "100", "volume": 1.16, "flow1500": 1.74, "flow1800": 2.08, "pressure": 0.5, "speed": 2000, "weight": 1.1 },
+                { "model": "200", "volume": 1.80, "flow1500": 2.70, "flow1800": 3.24, "pressure": 0.5, "speed": 2000, "weight": 1.2 },
+                { "model": "300", "volume": 2.50, "flow1500": 3.75, "flow1800": 4.50, "pressure": 0.5, "speed": 2000, "weight": 1.3 }
+            ],
+            "flowChart": {
+                "datasets": {
+                    "1500":[
+                        {"label": "流量特性 (1450min-1)"},
+                        { "label": "100", "data": [{"x": 0.1, "y": 1.69}, {"x": 0.2, "y": 1.67}, {"x": 0.3, "y": 1.64}, {"x": 0.4, "y": 1.62}, {"x": 0.5, "y": 1.59}], "borderColor": "rgb(59, 130, 246)", "backgroundColor": "rgba(59, 130, 246, 0.2)", "fill": false },
+                        { "label": "200", "data": [{"x": 0.1, "y": 2.72}, {"x": 0.2, "y": 2.70}, {"x": 0.3, "y": 2.67}, {"x": 0.4, "y": 2.65}, {"x": 0.5, "y": 2.62}], "borderColor": "rgb(234, 179, 8)", "backgroundColor": "rgba(234, 179, 8, 0.2)", "fill": false },
+                        { "label": "300", "data": [{"x": 0.1, "y": 3.71}, {"x": 0.2, "y": 3.69}, {"x": 0.3, "y": 3.68}, {"x": 0.4, "y": 3.66}, {"x": 0.5, "y": 3.64}], "borderColor": "rgb(34, 197, 94)", "backgroundColor": "rgba(34, 197, 94, 0.2)", "fill": false }
+                    ],
+                    "1800":[
+                        {"label": "流量特性 (1750min-1)"},
+                        { "label": "100", "data": [{"x": 0.1, "y": 2.10}, {"x": 0.2, "y": 2.08}, {"x": 0.3, "y": 2.06}, {"x": 0.4, "y": 2.03}, {"x": 0.5, "y": 2.01}], "borderColor": "rgb(59, 130, 246)", "backgroundColor": "rgba(59, 130, 246, 0.2)", "fill": false },
+                        { "label": "200", "data": [{"x": 0.1, "y": 3.29}, {"x": 0.2, "y": 3.28}, {"x": 0.3, "y": 3.26}, {"x": 0.4, "y": 3.25}, {"x": 0.5, "y": 3.23}], "borderColor": "rgb(234, 179, 8)", "backgroundColor": "rgba(234, 179, 8, 0.2)", "fill": false },
+                        { "label": "300", "data": [{"x": 0.1, "y": 4.51}, {"x": 0.2, "y": 4.47}, {"x": 0.3, "y": 4.42}, {"x": 0.4, "y": 4.38}, {"x": 0.5, "y": 4.33}], "borderColor": "rgb(34, 197, 94)", "backgroundColor": "rgba(34, 197, 94, 0.2)", "fill": false }
+                    ]
+                }
+            },
+            "powerChart": {
+                "datasets": {
+                    "1500": [
+                        {"label": "所要電力 (1450min-1)"},
+                        { "label": "100", "data": [{"x": 0.1, "y": 25}, {"x": 0.2, "y": 34}, {"x": 0.3, "y": 44}, {"x": 0.4, "y": 54}, {"x": 0.5, "y": 63}], "borderColor": "rgb(59, 130, 246)", "backgroundColor": "rgba(59, 130, 246, 0.2)", "fill": false },
+                        { "label": "200", "data": [{"x": 0.1, "y": 29}, {"x": 0.2, "y": 40}, {"x": 0.3, "y": 51}, {"x": 0.4, "y": 63}, {"x": 0.5, "y": 75}], "borderColor": "rgb(234, 179, 8)", "backgroundColor": "rgba(234, 179, 8, 0.2)", "fill": false },
+                        { "label": "300", "data": [{"x": 0.1, "y": 36}, {"x": 0.2, "y": 49}, {"x": 0.3, "y": 63}, {"x": 0.4, "y": 77}, {"x": 0.5, "y": 91}], "borderColor": "rgb(34, 197, 94)", "backgroundColor": "rgba(34, 197, 94, 0.2)", "fill": false }
+                    ],
+                    "1800": [
+                        {"label": "所要電力 (1750min-1)"},
+                        { "label": "100", "data": [{"x": 0.1, "y": 28}, {"x": 0.2, "y": 37}, {"x": 0.3, "y": 47}, {"x": 0.4, "y": 58}, {"x": 0.5, "y": 68}], "borderColor": "rgb(59, 130, 246)", "backgroundColor": "rgba(59, 130, 246, 0.2)", "fill": false },
+                        { "label": "200", "data": [{"x": 0.1, "y": 32}, {"x": 0.2, "y": 45}, {"x": 0.3, "y": 58}, {"x": 0.4, "y": 71}, {"x": 0.5, "y": 84}], "borderColor": "rgb(234, 179, 8)", "backgroundColor": "rgba(234, 179, 8, 0.2)", "fill": false },
+                        { "label": "300", "data": [{"x": 0.1, "y": 45}, {"x": 0.2, "y": 61}, {"x": 0.3, "y": 77}, {"x": 0.4, "y": 94}, {"x": 0.5, "y": 110}], "borderColor": "rgb(34, 197, 94)", "backgroundColor": "rgba(34, 197, 94, 0.2)", "fill": false }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "id": "1A",
+        "name": "1A",
+        "imageSrc": "image/product/1A.jpg",
+        "colorClass": "text-pump-lightBlue",
+        "ringColor": "#add8e6",
+        "capacitySpec": "8.1L まで",
+        "capacityPercent": "28%",
+        "charts": {
+            "chart1": {
+                "datasets": [
+                    { "label": "10A", "data": [{"x": 0, "y": 0.5}, {"x": 1.4, "y": 0.5}], "borderColor": "rgb(59, 130, 246)", "backgroundColor": "rgba(59, 130, 246, 0.2)", "fill": true },
+                    { "label": "11A", "data": [{"x": 1.4, "y": 0.5}, {"x": 2.7, "y": 0.5}], "borderColor": "rgb(234, 179, 8)", "backgroundColor": "rgba(234, 179, 8, 0.2)", "fill": true },
+                    { "label": "12A", "data": [{"x": 2.7, "y": 0.5}, {"x": 4.5, "y": 0.5}], "borderColor": "rgb(34, 197, 94)", "backgroundColor": "rgba(34, 197, 94, 0.2)", "fill": true },
+                    { "label": "13A", "data": [{"x": 4.5, "y": 0.5}, {"x": 8.1, "y": 0.5}], "borderColor": "rgb(239, 68, 68)", "backgroundColor": "rgba(239, 68, 68, 0.2)", "fill": true }
+                ]
+            }
+        },
+        "options": [
+            {
+                "name": "ポンプ単体",
+                "description": {
+                    "S": "軽量、コンパクトで安価なポンプです。8.1L/min・0.5MPa以下の使用で、作動油・潤滑油の移送に最適です。また、高温仕様(VF)は120℃まで使用可能で、燃料油・クーラント水用(WO)は150℃まで使用可能ですが、専用モータ(1ME、1ME-S)で運転の場合は液温120℃が最高使用温度です。かつ専用モータ一体型で24時間連続運転の場合、80℃以下でお使いください。リリーフバルブ(VB)は、通常開弁圧0.3MPaに設定しています。回転方向はポンプ軸端から見て反時計回りです。",
+                    "WO": "特殊PTFE(テフロン(R))系シールを使い、クーラント水や燃料油の化学変化による、シール性の低下を防ぎます。また、スラリーが混入したクーラント液でも長寿命を保つことができます。なお、一般的にこの種の液体は低粘度が多いため、ISO-VG46 湯温40℃における流量の6割程度を想定下さい。最高使用温度は150℃ですが、より高温仕様も可能です。"
+                },
+                "enabled": true,
+                "imageSrc": "image/product/1A.jpg",
+                "l4_details": {
+                    "Relief": { "VB": { "dimensionImageSrc": "image/spec/1AVB_Spec.png" } },
+                    "Rotation": { "R": { "dimensionImageSrc": "image/spec/1AR_Spec.png" } }
+                },
+                "details": {
+                    "dimensionImageSrc": "image/spec/1A_Spec.png",
+                    "specTable": [
+                        { "model": "10A", "volume": 0.8, "flow1500": 1.2, "flow1800": 1.4, "pressure": 0.5, "speed": 3000, "weight": 0.5 },
+                        { "model": "11A", "volume": 1.5, "flow1500": 2.2, "flow1800": 2.7, "pressure": 0.5, "speed": 2000, "weight": 0.51 },
+                        { "model": "12A", "volume": 2.5, "flow1500": 3.7, "flow1800": 4.5, "pressure": 0.5, "speed": 1800, "weight": 0.57 },
+                        { "model": "13A", "volume": 4.5, "flow1500": 6.7, "flow1800": 8.1, "pressure": 0.5, "speed": 1800, "weight": 0.76 }
+                    ],
+                    "flowChart": {
+                        "datasets": {
+                            "1500": [
+                                {"label": "流量特性 (1450min-1)"},
+                                { "label": "10A", "data": [{"x": 0.1, "y": 1.18}, {"x": 0.2, "y": 1.17}, {"x": 0.3, "y": 1.17}, {"x": 0.4, "y": 1.16}, {"x": 0.5, "y": 1.16}], "borderColor": "rgb(59, 130, 246)", "backgroundColor": "rgba(59, 130, 246, 0.2)", "fill": false },
+                                { "label": "11A", "data": [{"x": 0.1, "y": 2.21}, {"x": 0.2, "y": 2.16}, {"x": 0.3, "y": 2.12}, {"x": 0.4, "y": 2.07}, {"x": 0.5, "y": 2.03}], "borderColor": "rgb(234, 179, 8)", "backgroundColor": "rgba(234, 179, 8, 0.2)", "fill": false },
+                                { "label": "12A", "data": [{"x": 0.1, "y": 3.58}, {"x": 0.2, "y": 3.50}, {"x": 0.3, "y": 3.43}, {"x": 0.4, "y": 3.36}, {"x": 0.5, "y": 3.29}], "borderColor": "rgb(34, 197, 94)", "backgroundColor": "rgba(34, 197, 94, 0.2)", "fill": false },
+                                { "label": "13A", "data": [{"x": 0.1, "y": 6.68}, {"x": 0.2, "y": 6.55}, {"x": 0.3, "y": 6.43}, {"x": 0.4, "y": 6.31}, {"x": 0.5, "y": 6.19}], "borderColor": "rgb(239, 68, 68)", "backgroundColor": "rgba(239, 68, 68, 0.2)", "fill": false }
+                            ],
+                            "1800": [
+                                {"label": "流量特性 (1750min-1)"},
+                                { "label": "10A", "data": [{"x": 0.1, "y": 1.42}, {"x": 0.2, "y": 1.41}, {"x": 0.3, "y": 1.40}, {"x": 0.4, "y": 1.39}, {"x": 0.5, "y": 1.38}], "borderColor": "rgb(59, 130, 246)", "backgroundColor": "rgba(59, 130, 246, 0.2)", "fill": false },
+                                { "label": "11A", "data": [{"x": 0.1, "y": 2.65}, {"x": 0.2, "y": 2.59}, {"x": 0.3, "y": 2.54}, {"x": 0.4, "y": 2.48}, {"x": 0.5, "y": 2.44}], "borderColor": "rgb(234, 179, 8)", "backgroundColor": "rgba(234, 179, 8, 0.2)", "fill": false },
+                                { "label": "12A", "data": [{"x": 0.1, "y": 4.30}, {"x": 0.2, "y": 4.20}, {"x": 0.3, "y": 4.12}, {"x": 0.4, "y": 4.03}, {"x": 0.5, "y": 3.95}], "borderColor": "rgb(34, 197, 94)", "backgroundColor": "rgba(34, 197, 94, 0.2)", "fill": false },
+                                { "label": "13A", "data": [{"x": 0.1, "y": 8.02}, {"x": 0.2, "y": 7.86}, {"x": 0.3, "y": 7.72}, {"x": 0.4, "y": 7.57}, {"x": 0.5, "y": 7.43}], "borderColor": "rgb(239, 68, 68)", "backgroundColor": "rgba(239, 68, 68, 0.2)", "fill": false }
+                            ]
+                        }
+                    },
+                    "powerChart": {
+                        "datasets": {
+                            "1500": [
+                                {"label": "所要電力 (1450min-1)"},
+                                { "label": "10A", "data": [{"x": 0.1, "y": 37}, {"x": 0.2, "y": 41}, {"x": 0.3, "y": 45}, {"x": 0.4, "y": 49}, {"x": 0.5, "y": 52}], "borderColor": "rgb(59, 130, 246)", "backgroundColor": "rgba(59, 130, 246, 0.2)", "fill": false },
+                                { "label": "11A", "data": [{"x": 0.1, "y": 43}, {"x": 0.2, "y": 48}, {"x": 0.3, "y": 52}, {"x": 0.4, "y": 57}, {"x": 0.5, "y": 62}], "borderColor": "rgb(234, 179, 8)", "backgroundColor": "rgba(234, 179, 8, 0.2)", "fill": false },
+                                { "label": "12A", "data": [{"x": 0.1, "y": 50}, {"x": 0.2, "y": 59}, {"x": 0.3, "y": 68}, {"x": 0.4, "y": 77}, {"x": 0.5, "y": 88}], "borderColor": "rgb(34, 197, 94)", "backgroundColor": "rgba(34, 197, 94, 0.2)", "fill": false },
+                                { "label": "13A", "data": [{"x": 0.1, "y": 52}, {"x": 0.2, "y": 75}, {"x": 0.3, "y": 89}, {"x": 0.4, "y": 103}, {"x": 0.5, "y": 117}], "borderColor": "rgb(239, 68, 68)", "backgroundColor": "rgba(239, 68, 68, 0.2)", "fill": false }
+                            ],
+                            "1800": [
+                                {"label": "所要電力 (1750min-1)"},
+                                { "label": "10A", "data": [{"x": 0.1, "y": 44}, {"x": 0.2, "y": 49}, {"x": 0.3, "y": 54}, {"x": 0.4, "y": 59}, {"x": 0.5, "y": 62}], "borderColor": "rgb(59, 130, 246)", "backgroundColor": "rgba(59, 130, 246, 0.2)", "fill": false },
+                                { "label": "11A", "data": [{"x": 0.1, "y": 52}, {"x": 0.2, "y": 58}, {"x": 0.3, "y": 62}, {"x": 0.4, "y": 68}, {"x": 0.5, "y": 74}], "borderColor": "rgb(234, 179, 8)", "backgroundColor": "rgba(234, 179, 8, 0.2)", "fill": false },
+                                { "label": "12A", "data": [{"x": 0.1, "y": 60}, {"x": 0.2, "y": 71}, {"x": 0.3, "y": 82}, {"x": 0.4, "y": 92}, {"x": 0.5, "y": 106}], "borderColor": "rgb(34, 197, 94)", "backgroundColor": "rgba(34, 197, 94, 0.2)", "fill": false },
+                                { "label": "13A", "data": [{"x": 0.1, "y": 62}, {"x": 0.2, "y": 90}, {"x": 0.3, "y": 107}, {"x": 0.4, "y": 124}, {"x": 0.5, "y": 140}], "borderColor": "rgb(239, 68, 68)", "backgroundColor": "rgba(239, 68, 68, 0.2)", "fill": false }
+                            ]
+                        }
+                    }
+                }
+            },
+            {
+                "name": "ポンプ・モータ 一体型",
+                "enabled": true,
+                "imageSrc": "image/product/1ME-S.png",
+                "subOptions": [
+                    {
+                        "name": "単相モータ",
+                        "description": "1Aと専用モータを組み合わせた、コンパクトなセットの単相100V/200V仕様です。リリーフバルブ(VB)は、通常開弁圧0.3MPaに設定しています。 ※高高温仕様(VH)はできません",
+                        "imageSrc": "image/product/1ME-S.png",
+                        "modelConfig": { "part3": "1ME" },
+                        "details": { "dimensionImageSrc": "https://lh3.googleusercontent.com/d/1lJAwYdMuN7wcoDxOMPfvCoXD-Ai2kqDY", "specTable": "USE_1RA_SPEC_TABLE_ONLY", "flowChart": null, "powerChart": null },
+                        "additionalSubOptions": [
+                            { "name": "75", "modelPart": "75" },
+                            { "name": "200", "modelPart": "200" }
+                        ]
+                    },
+                    {
+                        "name": "三相モータ",
+                        "description": "1Aと専用モータを組み合わせたコンパクトなセットです。 三相200V級が標準仕様となります。高高温仕様をご要望の場合は、弊社にお尋ねください。リリーフバルブ(VB)は、通常開弁圧0.3MPaに設定しています。",
+                        "imageSrc": "image/product/1E.png",
+                        "modelConfig": { "part3": "1E" },
+                        "details": { "dimensionImageSrc": "image/product/1E.png", "specTable": "USE_1RA_SPEC_TABLE_ONLY", "flowChart": null, "powerChart": null },
+                        "additionalSubOptions": [
+                            { "name": "75", "modelPart": "75" },
+                            { "name": "100", "modelPart": "100" },
+                            { "name": "200", "modelPart": "200" }
+                        ]
+                    },
+                    {
+                        "name": "各国規制対応",
+                        "description": "1A専用モータには各種、規格･仕様に対応したものを取り揃えています。リリーフバルブ(VB)は、通常開弁圧0.3MPaに設定しています。",
+                        "imageSrc": "image/product/1E.png",
+                        "modelConfig": { "part3": "1Y" },
+                        "details": { "dimensionImageSrc": "https://placehold.co/800x400/888888/ffffff?text=1A+REGULATION+DIM", "specTable": "USE_1RA_SPEC_TABLE_ONLY", "flowChart": null, "powerChart": null },
+                        "additionalSubOptions": [
+                            { "name": "75", "modelPart": "75" },
+                            { "name": "100", "modelPart": "100" },
+                            { "name": "200", "modelPart": "200" }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "2A",
+        "name": "2A",
+        "imageSrc": "image/product/2A.png",
+        "colorClass": "text-pump-lightGreen",
+        "ringColor": "#90ee90",
+        "capacitySpec": "36L まで",
+        "capacityPercent": "40%",
+        "charts": {
+            "chart1": {
+                "datasets": [
+                    { "label": "204A", "data": [{"x": 5, "y": 3}, {"x": 7.2, "y": 3}], "borderColor": "rgb(59, 130, 246)", "backgroundColor":"rgba(59, 130, 246, 0.2)", "fill": true },
+                    { "label": "206A", "data": [{"x": 7.2, "y": 2.5}, {"x": 10.8, "y": 2.5}], "borderColor": "rgb(234, 179, 8)", "backgroundColor": "rgba(234, 179, 8, 0.2)", "fill": true },
+                    { "label": "208A", "data": [{"x": 10.8, "y": 2.5}, {"x": 14.4, "y": 2.5}], "borderColor": "rgb(34, 197, 94)", "backgroundColor": "rgba(34, 197, 94, 0.2)", "fill": true },
+                    { "label": "210A", "data": [{"x": 14.4, "y": 2.5}, {"x": 18.8, "y": 2.5}], "borderColor": "rgb(239, 68, 68)", "backgroundColor": "rgba(239, 68, 68, 0.2)", "fill": true },
+                    { "label": "212A", "data": [{"x": 18.8, "y": 2.0}, {"x": 21.6, "y": 2.0}], "borderColor": "rgb(168, 85, 247)", "backgroundColor": "rgba(168, 85, 247, 0.2)", "fill": true },
+                    { "label": "216A", "data": [{"x": 21.6, "y": 1.5}, {"x": 28.8, "y": 1.5}], "borderColor": "rgb(236, 72, 153)", "backgroundColor": "rgba(236, 72, 153, 0.2)", "fill": true },
+                    { "label": "220A", "data": [{"x": 28.8, "y": 1.2}, {"x": 36.0, "y": 1.2}], "borderColor": "rgb(249, 115, 22)", "backgroundColor": "rgba(249, 115, 22, 0.2)", "fill": true }
+                ]
+            }
+        },
+        "options": [
+            {
+                "name": "ポンプ単体",
+                "description": {
+                    "S": "中容量、中圧用のポンプです。36L/min、もしくは3MPa以下の仕様で作動油・潤滑油の油圧、潤滑、冷却用途に広く使われます。 高温仕様は(VF)120℃、高高温仕様(VH)は200℃までの仕様が可能です。 回転方向は軸端から見て反時計回りが標準です。",
+                    "WO": "特殊PTFE(テフロン(R))系シールを使い、ベアリングを液体から隔離しています。 このため、ベアリングの偏摩耗が抑えられ廃油の噴霧やスラリー(異物)が混入したクーラント液でも長寿命を保つことができます。この機種はすべて液温150℃までの温度に耐えることができます。それ以上の高温をご希望の場合は、弊社にお尋ねください。 なお、モータ一体型(2MY･2Y)でご使用の場合は、120℃以下でお使いください。 かつモータ一体型で24時間連続運転の場合は80℃以下でお使い下さい。 また、このポンプは最大吐出圧力と同じだけの吸入圧をかけることができます。",
+                    "PL": "特殊PTFE(テフロン(R))系シールを使い、シール間に液体を封入することにより、液体と外気との接触を遮断しています。 空気との接触が厳禁な、イソシアネートの様な嫌気性液体の移送に最適です。 この機種はすべて液温120℃までの温度に耐えることができます。それ以上の高温をご希望の場合は、弊社にお尋ね下さい。 なお、モータ一体型でご使用の場合は、120℃以下でお使い下さい。 かつモータ一体型で24時間連続運転の場合は80℃以下でお使い下さい。 また、このポンプは最大吐出圧力と同じだけの吸入圧をかけることができます。"
+                },
+                "enabled": true,
+                "imageSrc": {
+                    "S": "image/product/2A.png",
+                    "WO": "image/product/2AWO.png",
+                    "PL": "image/product/2A.png"
+                }
+                ,
+                "l4_details": {
+                    "Relief": { "VB": { "dimensionImageSrc": "https://lh3.googleusercontent.com/d/12MeCSg6gpCdz49odXqKKeB7Rbcm0tdq4" } },
+                    "Rotation": { "R": { "dimensionImageSrc": "https://lh3.googleusercontent.com/d/1S78oib2w72nmmZ9vT8HlYRoLnjYKtfAp" } }
+                },
+                "details": {
+                    "dimensionImageSrc": "https://lh3.googleusercontent.com/d/1WZvsqbh6VYjR4eKFlSbNAt6ukA_h9rvc",
+                    "specTable": [
+                        { "model": "10A", "volume": 0.8, "flow1500": 1.2, "flow1800": 1.4, "pressure": 0.5, "speed": 3000, "weight": 0.5 },
+                        { "model": "11A", "volume": 1.5, "flow1500": 2.2, "flow1800": 2.7, "pressure": 0.5, "speed": 2000, "weight": 0.51 },
+                        { "model": "12A", "volume": 2.5, "flow1500": 3.7, "flow1800": 4.5, "pressure": 0.5, "speed": 1800, "weight": 0.57 },
+                        { "model": "13A", "volume": 4.5, "flow1500": 6.7, "flow1800": 8.1, "pressure": 0.5, "speed": 1800, "weight": 0.76 }
+                    ],
+                    "flowChart": {
+                        "datasets": {
+                            "1500": [
+                                {"label": "流量特性 (1450min-1)"},
+                                { "label": "204A", "data": [{"x": 0.1, "y": 1.18}, {"x": 0.2, "y": 1.17}, {"x": 0.3, "y": 1.17}, {"x": 0.4, "y": 1.16}, {"x": 0.5, "y": 1.16}], "borderColor": "rgb(59, 130, 246)", "backgroundColor": "rgba(59, 130, 246, 0.2)", "fill": false },
+                                { "label": "206A", "data": [{"x": 0.1, "y": 2.21}, {"x": 0.2, "y": 2.16}, {"x": 0.3, "y": 2.12}, {"x": 0.4, "y": 2.07}, {"x": 0.5, "y": 2.03}], "borderColor": "rgb(234, 179, 8)", "backgroundColor": "rgba(234, 179, 8, 0.2)", "fill": false },
+                                { "label": "208A", "data": [{"x": 0.1, "y": 3.58}, {"x": 0.2, "y": 3.50}, {"x": 0.3, "y": 3.43}, {"x": 0.4, "y": 3.36}, {"x": 0.5, "y": 3.29}], "borderColor": "rgb(34, 197, 94)", "backgroundColor": "rgba(34, 197, 94, 0.2)", "fill": false },
+                                { "label": "210A", "data": [{"x": 0.1, "y": 6.68}, {"x": 0.2, "y": 6.55}, {"x": 0.3, "y": 6.43}, {"x": 0.4, "y": 6.31}, {"x": 0.5, "y": 6.19}], "borderColor": "rgb(239, 68, 68)", "backgroundColor": "rgba(239, 68, 68, 0.2)", "fill": false }
+                            ],
+                            "1800": [
+                                {"label": "流量特性 (1750min-1)"},
+                                { "label": "204A", "data": [{"x": 0.1, "y": 1.42}, {"x": 0.2, "y": 1.41}, {"x": 0.3, "y": 1.40}, {"x": 0.4, "y": 1.39}, {"x": 0.5, "y": 1.38}], "borderColor": "rgb(59, 130, 246)", "backgroundColor": "rgba(59, 130, 246, 0.2)", "fill": false },
+                                { "label": "206A", "data": [{"x": 0.1, "y": 2.65}, {"x": 0.2, "y": 2.59}, {"x": 0.3, "y": 2.54}, {"x": 0.4, "y": 2.48}, {"x": 0.5, "y": 2.44}], "borderColor": "rgb(234, 179, 8)", "backgroundColor": "rgba(234, 179, 8, 0.2)", "fill": false },
+                                { "label": "208A", "data": [{"x": 0.1, "y": 4.30}, {"x": 0.2, "y": 4.20}, {"x": 0.3, "y": 4.12}, {"x": 0.4, "y": 4.03}, {"x": 0.5, "y": 3.95}], "borderColor": "rgb(34, 197, 94)", "backgroundColor": "rgba(34, 197, 94, 0.2)", "fill": false },
+                                { "label": "210A", "data": [{"x": 0.1, "y": 8.02}, {"x": 0.2, "y": 7.86}, {"x": 0.3, "y": 7.72}, {"x": 0.4, "y": 7.57}, {"x": 0.5, "y": 7.43}], "borderColor": "rgb(239, 68, 68)", "backgroundColor": "rgba(239, 68, 68, 0.2)", "fill": false }
+                            ]
+                        }
+                    },
+                    "powerChart": {
+                        "datasets": {
+                            "1500": [
+                                {"label": "所要電力 (1450min-1)"},
+                                { "label": "204A", "data": [{"x": 0.1, "y": 37}, {"x": 0.2, "y": 41}, {"x": 0.3, "y": 45}, {"x": 0.4, "y": 49}, {"x": 0.5, "y": 52}], "borderColor": "rgb(59, 130, 246)", "backgroundColor": "rgba(59, 130, 246, 0.2)", "fill": false },
+                                { "label": "206A", "data": [{"x": 0.1, "y": 43}, {"x": 0.2, "y": 48}, {"x": 0.3, "y": 52}, {"x": 0.4, "y": 57}, {"x": 0.5, "y": 62}], "borderColor": "rgb(234, 179, 8)", "backgroundColor": "rgba(234, 179, 8, 0.2)", "fill": false },
+                                { "label": "208A", "data": [{"x": 0.1, "y": 50}, {"x": 0.2, "y": 59}, {"x": 0.3, "y": 68}, {"x": 0.4, "y": 77}, {"x": 0.5, "y": 88}], "borderColor": "rgb(34, 197, 94)", "backgroundColor": "rgba(34, 197, 94, 0.2)", "fill": false },
+                                { "label": "210A", "data": [{"x": 0.1, "y": 52}, {"x": 0.2, "y": 75}, {"x": 0.3, "y": 89}, {"x": 0.4, "y": 103}, {"x": 0.5, "y": 117}], "borderColor": "rgb(239, 68, 68)", "backgroundColor": "rgba(239, 68, 68, 0.2)", "fill": false }
+                            ],
+                            "1800": [
+                                {"label": "所要電力 (1750min-1)"},
+                                { "label": "204A", "data": [{"x": 0.1, "y": 44}, {"x": 0.2, "y": 49}, {"x": 0.3, "y": 54}, {"x": 0.4, "y": 59}, {"x": 0.5, "y": 62}], "borderColor": "rgb(59, 130, 246)", "backgroundColor": "rgba(59, 130, 246, 0.2)", "fill": false },
+                                { "label": "206A", "data": [{"x": 0.1, "y": 52}, {"x": 0.2, "y": 58}, {"x": 0.3, "y": 62}, {"x": 0.4, "y": 68}, {"x": 0.5, "y": 74}], "borderColor": "rgb(234, 179, 8)", "backgroundColor": "rgba(234, 179, 8, 0.2)", "fill": false },
+                                { "label": "208A", "data": [{"x": 0.1, "y": 60}, {"x": 0.2, "y": 71}, {"x": 0.3, "y": 82}, {"x": 0.4, "y": 92}, {"x": 0.5, "y": 106}], "borderColor": "rgb(34, 197, 94)", "backgroundColor": "rgba(34, 197, 94, 0.2)", "fill": false },
+                                { "label": "210A", "data": [{"x": 0.1, "y": 62}, {"x": 0.2, "y": 90}, {"x": 0.3, "y": 107}, {"x": 0.4, "y": 124}, {"x": 0.5, "y": 140}], "borderColor": "rgb(239, 68, 68)", "backgroundColor": "rgba(239, 68, 68, 0.2)", "fill": false }
+                            ]
+                        }
+                    }
+                }
+            },
+            {
+                "name": "ポンプ・モータ 一体型",
+                "enabled": true,
+                "imageSrc": "https://placehold.co/800x600/90ee90/006400?text=2A+MOTOR+SET",
+                "subOptions": [
+                    {
+                        "name": "単相モータ",
+                        "description": "2Aと専用モータを組み合わせたコンパクトなセットの単相 100V/200V仕様です。 高高温仕様(VH･150℃対応)をご要望の場合は、弊社にお尋ねください。",
+                        "imageSrc": "https://placehold.co/800x600/cccccc/000000?text=2A+SINGLE+PHASE",
+                        "modelConfig": { "part3": "2ME" },
+                        "details": { "dimensionImageSrc": "https://placehold.co/800x400/cccccc/000000?text=2A+SINGLE+PHASE+DIM", "specTable": "USE_1RA_SPEC_TABLE_ONLY", "flowChart": null, "powerChart": null },
+                        "additionalSubOptions": [
+                            { "name": "75", "modelPart": "75" },
+                            { "name": "200", "modelPart": "200" }
+                        ]
+                    },
+                    {
+                        "name": "三相モータ",
+                        "description": "2Aと専用モータを組み合わせたコンパクトなセットです。 三相200Vが標準仕様となります。高高温仕様(VH･150℃対応)をご要望の場合は、弊社にお尋ねください。",
+                        "imageSrc": "https://placehold.co/800x600/aaaaaa/ffffff?text=2A+THREE+PHASE",
+                        "modelConfig": { "part3": "2E" },
+                        "details": { "dimensionImageSrc": "https://placehold.co/800x400/aaaaaa/ffffff?text=2A+THREE+PHASE+DIM", "specTable": "USE_1RA_SPEC_TABLE_ONLY", "flowChart": null, "powerChart": null },
+                        "additionalSubOptions": [
+                            { "name": "75", "modelPart": "75" },
+                            { "name": "100", "modelPart": "100" },
+                            { "name": "200", "modelPart": "200" }
+                        ]
+                    },
+                    {
+                        "name": "各国規制対応",
+                        "description": "各国規制対応",
+                        "imageSrc": "https://placehold.co/800x600/888888/ffffff?text=2A+REGULATION",
+                        "modelConfig": { "part3": "2Y" },
+                        "details": { "dimensionImageSrc": "https://placehold.co/800x400/888888/ffffff?text=2A+REGULATION+DIM", "specTable": "USE_1RA_SPEC_TABLE_ONLY", "flowChart": null, "powerChart": null },
+                        "additionalSubOptions": [
+                            { "name": "75", "modelPart": "75" },
+                            { "name": "100", "modelPart": "100" },
+                            { "name": "200", "modelPart": "200" }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "ベースカップリング取付型",
+                "description": {
+                    "S": "S",
+                    "WO": "WO"
+                },
+                "enabled": true,
+                "imageSrc": "https://placehold.co/800x600/90ee90/006400?text=2A+BASE+COUPLING",
+                "details": { "dimensionImageSrc": "https://placehold.co/800x400/90ee90/006400?text=2A+BASE+DIM", "specTable": "USE_1RA_SPEC_TABLE_ONLY", "flowChart": null, "powerChart": null }
+            }
+        ]
+    },
+    {
+        "id": "3F",
+        "name": "3F (A/B)",
+        "imageSrc": "https://lh3.googleusercontent.com/d/135LDHJhsQNJykVvSF5jtF_XccXSfMz0z",
+        "colorClass": "text-pump-purple",
+        "ringColor": "#d8b4fe",
+        "capacitySpec": "93.6L まで",
+        "capacityPercent": "60%",
+        "charts": {
+            "chart1": {
+                "datasets": [
+                    { "label": "320F", "data": [{"x": 35, "y": 2.5}, {"x": 46.8, "y": 2.5}], "borderColor": "rgb(59, 130, 246)", "backgroundColor": "rgba(59, 130, 246, 0.2)", "fill": true },
+                    { "label": "330F", "data": [{"x": 46.8, "y": 2.5}, {"x": 70.2, "y": 2.5}], "borderColor": "rgb(234, 179, 8)", "backgroundColor": "rgba(234, 179, 8, 0.2)", "fill": true },
+                    { "label": "340F", "data": [{"x": 70.2, "y": 2.0}, {"x": 93.6, "y": 2.0}], "borderColor": "rgb(34, 197, 94)", "backgroundColor": "rgba(34, 197, 94, 0.2)", "fill": true }
+                ]
+            }
+        },
+        "options": [
+            {
+                "name": "ポンプ単体",
+                "description": "標準",
+                "enabled": true,
+                "imageSrc": "https://placehold.co/800x600/d8b4fe/581c87?text=3F+PUMP+ONLY",
+                "details": "USE_1RA_DETAILS"
+            },
+            {
+                "name": "ポンプ・モータ 一体型",
+                "enabled": true,
+                "imageSrc": "https://placehold.co/800x600/d8b4fe/581c87?text=3F+MOTOR+SET",
+                "subOptions": [
+                    {
+                        "name": "単相モータ",
+                        "description": "単相モータ",
+                        "imageSrc": "https://placehold.co/800x600/cccccc/000000?text=3F+SINGLE+PHASE",
+                        "modelConfig": { "part3": "3FME" },
+                        "details": { "dimensionImageSrc": "https://placehold.co/800x400/cccccc/000000?text=3F+SINGLE+PHASE+DIM", "specTable": "USE_1RA_SPEC_TABLE_ONLY", "flowChart": null, "powerChart": null },
+                        "additionalSubOptions": [
+                            { "name": "75", "modelPart": "75" },
+                            { "name": "200", "modelPart": "200" }
+                        ]
+                    },
+                    {
+                        "name": "三相モータ",
+                        "description": "三相モータ",
+                        "imageSrc": "https://placehold.co/800x600/aaaaaa/ffffff?text=3F+THREE+PHASE",
+                        "modelConfig": { "part3": "3FE" },
+                        "details": { "dimensionImageSrc": "https://placehold.co/800x400/aaaaaa/ffffff?text=3F+THREE+PHASE+DIM", "specTable": "USE_1RA_SPEC_TABLE_ONLY", "flowChart": null, "powerChart": null },
+                        "additionalSubOptions": [
+                            { "name": "75", "modelPart": "75" },
+                            { "name": "100", "modelPart": "100" },
+                            { "name": "200", "modelPart": "200" }
+                        ]
+                    },
+                    {
+                        "name": "各国規制対応",
+                        "description": "各国規制対応",
+                        "imageSrc": "https://placehold.co/800x600/888888/ffffff?text=3F+REGULATION",
+                        "modelConfig": { "part3": "3FY" },
+                        "details": { "dimensionImageSrc": "https://placehold.co/800x400/888888/ffffff?text=3F+REGULATION+DIM", "specTable": "USE_1RA_SPEC_TABLE_ONLY", "flowChart": null, "powerChart": null },
+                        "additionalSubOptions": [
+                            { "name": "75", "modelPart": "75" },
+                            { "name": "100", "modelPart": "100" },
+                            { "name": "200", "modelPart": "200" }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "3H",
+        "name": "3H",
+        "imageSrc": "https://lh3.googleusercontent.com/d/1hwGdOkkK47VOcf9sGw4Gm14P_Y2j8OXh",
+        "colorClass": "text-pump-blue",
+        "ringColor": "#2563eb",
+        "capacitySpec": "117L まで",
+        "capacityPercent": "80%",
+        "charts": {
+            "chart1": {
+                "datasets": [
+                    { "label": "320H", "data": [{"x": 35, "y": 4.0}, {"x": 46.8, "y": 4.0}], "borderColor": "rgb(59, 130, 246)", "backgroundColor": "rgba(59, 130, 246, 0.2)", "fill": true },
+                    { "label": "330H", "data": [{"x": 46.8, "y": 4.0}, {"x": 70.2, "y": 4.0}], "borderColor": "rgb(234, 179, 8)", "backgroundColor": "rgba(234, 179, 8, 0.2)", "fill": true },
+                    { "label": "340H", "data": [{"x": 70.2, "y": 3.0}, {"x": 93.6, "y": 3.0}], "borderColor": "rgb(34, 197, 94)", "backgroundColor": "rgba(34, 197, 94, 0.2)", "fill": true },
+                    { "label": "350H", "data": [{"x": 93.6, "y": 2.0}, {"x": 117.0, "y": 2.0}], "borderColor": "rgb(239, 68, 68)", "backgroundColor": "rgba(239, 68, 68, 0.2)", "fill": true }
+                ]
+            }
+        },
+        "options": [
+            {
+                "name": "ポンプ単体",
+                "description": {
+                    "S": "S",
+                    "WO": "WO"
+                },
+                "enabled": true,
+                "imageSrc": "https://placehold.co/800x600/2563eb/ffffff?text=3H+PUMP+ONLY",
+                "details": "USE_1RA_DETAILS"
+            },
+            {
+                "name": "ベースカップリング取付型",
+                "description": "標準",
+                "enabled": true,
+                "imageSrc": "https://placehold.co/800x600/d8b4fe/581c87?text=3F+BASE+COUPLING",
+                "details": { "dimensionImageSrc": "https://placehold.co/800x400/d8b4fe/581c87?text=3F+BASE+DIM", "specTable": "USE_1RA_SPEC_TABLE_ONLY", "flowChart": null, "powerChart": null }
+            }
+        ]
+    }
+]

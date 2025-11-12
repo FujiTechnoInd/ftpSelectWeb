@@ -5,27 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FTP選定ツール</title>
     <!-- Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
-    <!-- Interフォントの読み込み --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- ★新規: 3Dビューアライブラリ -->
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    <!-- フォントの読み込み -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 3Dビューアライブラリ --><script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
     <!-- Chart.js CDN --><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Local CSS --><link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-slate-100 min-h-screen md:p-8">
 
+    <!-- メインコンテンツコンテナ -->
     <div class="max-w-7xl mx-auto bg-white shadow-xl overflow-hidden rounded-2xl">
         
-        <!-- 上部テキスト --><div id="header-title" class="text-lg p-4 bg-slate-50 text-gray-700 font-semibold text-center rounded-t-2xl md:text-xl transition-colors duration-300">
+        <!-- ヘッダータイトル: ユーザーへの指示を表示。選択状態に応じて内容が変化します -->
+        <div id="header-title" class="text-lg p-4 bg-slate-50 text-gray-700 font-semibold text-center rounded-t-2xl md:text-xl transition-colors duration-300">
             ご希望の最大吐出量に適したシリーズを選択してください。
         </div>
 
-        <!-- 1. 製品カテゴリ コンテナ --><div id="product-container" class="w-full">
-            <!-- 製品はJSによってここに動的に生成されます --></div> <!-- /product-container --></div>
+        <!-- 製品選択エリア: JavaScriptによって製品シリーズごとのカラムがここに動的に生成されます -->
+        <div id="product-container" class="w-full">
+            <!-- 製品カラムはJSによってここに動的に生成されます -->
+        </div> <!-- /product-container -->
+    </div>
 
-    <!-- ★新規: 型式一覧選択フローティングボタン -->
+    <!-- 型式一覧選択フローティングボタン: クリックすると型式一覧モーダルを開きます -->
     <button type="button" id="quick-select-btn" class="quick-select-button">型式一覧から選択</button>
 
-    <!-- フッター --><div id="model-footer-container" class="model-footer" style="display: none;">
+    <!-- フッター: 選択中の型式を表示します。最初は非表示です -->
+    <div id="model-footer-container" class="model-footer">
         <span class="model-footer-title">選択中の型式</span>
         <div id="model-display-clickable" class="model-display-clickable-wrapper">
             <div class="model-display-wrapper">
@@ -48,7 +56,8 @@
         </div>
     </div>
     
-    <div id="model-dropdown-modal" class="model-dropdown-overlay" style="display: none;">
+    <!-- 型式ドロップダウンモーダル: フッターの型式部分をクリックした際に表示される簡易選択モーダル -->
+    <div id="model-dropdown-modal" class="model-dropdown-overlay">
         <div class="model-dropdown-content">
             <h3 id="model-dropdown-title">型式を選択</h3>
             <div id="model-dropdown-list">
@@ -58,19 +67,19 @@
         </div>
     </div>
 
-    <!-- ★新規: 型式一覧選択モーダル -->
-    <div id="quick-select-modal" class="quick-select-modal-overlay" style="display: none;">
+    <!-- 型式一覧選択モーダル: 型式を一覧から検索・選択するためのモーダル -->
+    <div id="quick-select-modal" class="quick-select-modal-overlay">
         <div class="quick-select-modal-content">
             <div class="quick-select-modal-header">
                 <h3 id="quick-select-modal-title">型式一覧から選択</h3>
                 <button type="button" id="quick-select-modal-close" class="quick-select-modal-close-btn">&times;</button>
             </div>
             <div class="quick-select-modal-body">
-                <!-- ★新規: カテゴリ選択タブ -->
+                <!-- カテゴリ選択タブ: ポンプ単体、ポンプ・モータ一体型など -->
                 <div id="quick-select-category-tabs" class="quick-select-tabs"></div>
-                <div id="quick-select-subcategory-tabs" class="quick-select-tabs" style="display: none;"></div>
+                <div id="quick-select-subcategory-tabs" class="quick-select-tabs"></div>
 
-                <!-- ★新規: フィルターと用途トグル -->
+                <!-- フィルターと用途トグル -->
                 <div class="flex justify-between items-center mb-4">
                     <!-- フィルター入力 -->
                     <div class="relative w-1/3">
@@ -87,6 +96,7 @@
                     </div>
                 </div>
 
+                <!-- 型式一覧テーブル -->
                 <table class="quick-select-table">
                     <thead>
                         <tr id="quick-select-table-header"></tr>
@@ -97,8 +107,8 @@
         </div>
     </div>
 
-    <!-- ★新規: 3Dビューアモーダル -->
-    <div id="model-viewer-modal" class="model-viewer-overlay" style="display: none;">
+    <!-- 3Dビューアモーダル: 製品の3Dモデルを表示します -->
+    <div id="model-viewer-modal" class="model-viewer-overlay">
         <div class="model-viewer-content">
             <button type="button" id="model-viewer-close" class="model-viewer-close-btn">&times;</button>
             <!-- 寸法表示トグル -->
@@ -109,12 +119,12 @@
                 </label>
                 <span class="ar-toggle-label">寸法を表示</span>
             </div>
-            <!-- ★修正: model-viewerをJSで挿入するためのコンテナ -->
+            <!-- model-viewerコンテナ: JavaScriptによって<model-viewer>要素が挿入されます -->
             <div id="model-viewer-container"></div>
         </div>
     </div>
 
-    <!-- ★新規: QRコード表示用モーダル -->
+    <!-- QRコード表示用モーダル: PCで閲覧時にスマートフォンでのAR表示を促します -->
     <div id="qr-code-modal" class="qr-code-modal-overlay">
         <div class="qr-code-modal-content">
             <button type="button" id="qr-code-close-btn" class="model-viewer-close-btn" style="top: 1rem; right: 1rem;">&times;</button>
@@ -126,9 +136,8 @@
         </div>
     </div>
 
-
-    <script src="productData.js" defer></script>
-    <script src="app.js" defer></script>
+    <!-- アプリケーションのメインスクリプト -->
+    <script type="module" src="js/app.js"></script>
 
 </body>
 </html>

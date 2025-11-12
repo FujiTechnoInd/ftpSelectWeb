@@ -1,4 +1,3 @@
-/* Interフォントをデフォルトに設定 */
 body {
     font-family: 'Inter', sans-serif;
     scroll-behavior: smooth;
@@ -48,7 +47,7 @@ body {
     max-height: 10rem; 
     flex-wrap: nowrap; 
 
-    /* ★変更: カードデザイン */
+    /* カードデザイン */
     background-color: #ffffff; /* bg-white */
     border-radius: 0.75rem; /* rounded-xl */
     box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); /* shadow-md */
@@ -103,66 +102,59 @@ body {
     min-width: 0; /* ★追加: コンテナ自体が縮小できるようにする */
 }
 
-
 .capacity-bar-fill {
     height: 2.5rem; /* h-10 */
     border-radius: 0.5rem; /* rounded-lg */
-    flex-shrink: 0; 
-    transition: width 0.5s ease-out;
+    flex-shrink: 0; /* ★変更: widthのtransitionは削除 */
     position: relative; /* 疑似要素配置のため */
-    overflow: hidden; /* はみ出した光沢を隠す */
-
-    /* 変更: デジタルメーター風の背景（暗い状態） */
-    background-color: #1e3a8a; /* 濃い青 (text-blue-900) - 空の状態 */
+    background-color: #e0f2fe; /* bg-sky-100 より薄い背景色 */
+    overflow: hidden; /* はみ出した波を隠す */
 }
 
-/* 変更: 液体が満たされるアニメーション */
-@keyframes liquid-fill-animation {
+/* ★変更: 液体が満たされるアニメーションを定義 */
+@keyframes liquid-fill {
     from { width: 0%; }
     to { width: 100%; }
 }
 
-/* 追加: 気泡が立ち上るアニメーション */
-@keyframes bubble-rise-animation {
-    0% { background-position: 0% 100%; }
-    100% { background-position: 0% 0%; opacity: 0; }
-}
-
-/* 変更: 液体と気泡を表現する疑似要素 */
+/* ★変更: 液体と波を表現する疑似要素 */
 .capacity-bar-fill::before,
 .capacity-bar-fill::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
-    width: 0%; /* アニメーションで幅を広げる */
-    height: 100%;
+    width: 0%; /* ★変更: アニメーションで幅を広げる */
+    height: 200%;
+    /* ★変更: 充填アニメーションを適用 */
+    animation: liquid-fill 0.8s ease-out forwards;
 }
 
-/* ::before: 液体部分 */
+/* ::before: 液体本体 */
 .capacity-bar-fill::before {
-    background-color: #60a5fa; /* 明るい青 (bg-blue-400) */
-    animation: liquid-fill-animation 1.5s ease-out forwards;
+    background-color: #60a5fa; /* bg-blue-400 */
     z-index: 1;
 }
 
-/* ::after: 気泡部分 */
+/* ::after: 液体の波模様 */
 .capacity-bar-fill::after {
-    background-image: 
-        radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 2px),
-        radial-gradient(circle, rgba(255,255,255,0.3) 2px, transparent 3px);
-    background-size: 20px 20px, 30px 30px;
-    background-repeat: repeat-x;
-    animation: liquid-fill-animation 1.5s ease-out forwards, /* 幅を広げる */
-               bubble-rise-animation 2s linear infinite 1.5s; /* 立ち上る (幅のアニメーション後に開始) */
+    background: radial-gradient(circle at 50% -50%, rgba(255, 255, 255, 0.4) 40%, transparent 41%);
+    background-size: 50px 100px;
+    /* ★変更: 充填アニメーションの後、波アニメーションを開始 */
+    animation: liquid-fill 0.8s ease-out forwards, wave 3s linear infinite 0.8s;
     z-index: 2;
+}
+
+/* 波のアニメーション */
+@keyframes wave {
+    from { background-position: 0px 0px; }
+    to { background-position: 50px 0px; }
 }
 
 .capacity-spec-text {
     padding-left: 0.75rem; /* pl-3 */
     font-size: 0.875rem; /* text-sm */
     font-weight: 600; /* font-semibold */
-    color: #1f2937; /* text-gray-800 */
     white-space: normal;
     flex-shrink: 1; /* ★追加: テキストが見切れないように、必要に応じて縮小・改行を許可 */
     min-width: 0; /* ★追加: flexアイテムがコンテンツ幅より縮小できるようにする */
@@ -177,6 +169,11 @@ body {
 #product-container:not(.has-active) .capacity-column .capacity-bar-container {
     display: flex;
 }
+/* ★追加: バーが表示されている時だけテキスト充填アニメーションを発動 */
+#product-container:not(.has-active) .capacity-spec-text {
+    background-position: 0 0;
+}
+
 
 /* ★追加: カードデザインが見えるようにコンテナにパディングを追加 */
 #product-container {
@@ -206,6 +203,45 @@ body {
     display: flex; 
     flex-direction: column; 
     max-height: 2000px; 
+}
+
+/* 製品説明（電光掲示板風） */
+.product-description-wrapper {
+    display: none; /* .column-active で表示 */
+    width: 100%;
+    background-color: #1f2937; /* bg-gray-800 */
+    flex-basis: 100%; /* 強制的に改行させて先頭に配置 */
+    padding: 0.75rem 0; /* py-3 */
+    overflow: hidden; /* はみ出したテキストを隠す */
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    white-space: nowrap; /* 中の要素が改行しないようにする */
+}
+/* ★修正: カラムがアクティブで、かつ説明文のコンテナがhas-contentクラスを持つ場合のみ表示 */
+.capacity-column.column-active .product-description-wrapper.has-content {
+    display: block;
+}
+
+/* ★修正: アニメーションの適用対象をコンテナからテキスト自体に変更 */
+.product-description-text-container {
+    display: inline-block;
+}
+.product-description-text {
+    font-family: 'DotGothic16', sans-serif;
+    color: #f9fafb; /* text-gray-50 */
+    font-weight: 600;
+    display: inline-block;
+    /* ★修正: アニメーションをここに適用 */
+    animation: marquee 30s linear infinite;
+    will-change: transform;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(40%); /* 開始位置を画面右端の外側へ */
+    }
+    100% {
+        transform: translateX(-100%); /* 終了位置を画面左端の外側へ */
+    }
 }
 
 /* グラフエリアとオプションエリアの基本スタイル */
@@ -376,98 +412,75 @@ body {
     font-weight: 600;
 }
 
-
  .sub-options-container {
      background-color: #f1f5f9; /* bg-slate-100 */
      border-radius: 0.5rem;
      padding: 0.75rem;
-     display: flex; 
-     gap: 0.5rem;
-     flex-wrap: wrap;
+     display: none; /* JSで制御 */
  }
+ /* ★追加: JSでshowクラスを付与されたら表示 */
+ .sub-options-container.show {
+    display: flex;
+    flex-direction: row; /* ★変更: 子要素を横並びに */
+    flex-wrap: wrap;     /* ★追加: 折り返しを許可 */
+    align-items: center; /* ★追加: 垂直方向の中央揃え */
+    gap: 0.5rem;
+ }
+ /* ★追加: L2とL3のコンテナもflexにして中のボタンを並べる */
+ .options-level-2, .options-level-3 {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+ }
+
  /* L3タイトル */
  .options-level-3-title {
     font-size: 0.875rem;
     font-weight: 600;
     color: #475569;
-    width: 100%;
-    margin-bottom: 0.25rem;
+    /* ★変更: 横並びにするため幅の指定を削除 */
+    /* width: 100%; */
+    margin-right: 0.5rem; /* 右側のボタンとの間隔 */
  }
 
-/* ★ 新規: トグルスイッチ (スイッチ型) */
-.usage-toggle-switch-wrapper {
+/* ★ 新規: 用途トグルボタン (ボタングループ型) */
+.usage-toggle-buttons-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem; /* gap-3 */
-    margin-bottom: 1rem;
+    background-color: #e2e8f0; /* bg-slate-200 */
+    border-radius: 0.5rem; /* rounded-lg */
+    padding: 0.25rem; /* p-1 */
 }
-.usage-toggle-label {
-    font-size: 0.875rem; /* text-sm */
-    font-weight: 500;
+.usage-toggle-button {
+    flex: 1;
+    padding: 0.5rem 0.75rem; /* py-2 px-3 */
+    border: none;
+    border-radius: 0.375rem; /* rounded-md */
+    background-color: transparent;
     color: #475569; /* text-slate-600 */
-    transition: color 0.3s ease;
-    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
 }
-.usage-toggle-label.active {
+.usage-toggle-button.active {
+    background-color: #ffffff;
     color: #1e3a8a; /* text-blue-900 */
-    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
-.toggle-button {
-    position: relative;
-    width: 52px; /* w-13 */
-    height: 28px; /* h-7 */
-    flex-shrink: 0;
-}
-.toggle_input {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 5;
-    opacity: 0;
-    cursor: pointer;
-}
-.toggle_label {
-    width: 52px;
-    height: 28px;
-    background: #cbd5e1; /* bg-slate-300 */
-    position: relative;
-    display: inline-block;
-    border-radius: 40px;
-    transition: 0.4s;
-    box-sizing: border-box;
-}
-.toggle_label:after {
-    content: "";
-    position: absolute;
-    width: 20px; /* w-5 */
-    height: 20px; /* h-5 */
-    border-radius: 100%;
-    left: 4px;
-    top: 4px;
-    z-index: 2;
-    background: #ffffff;
-    transition: 0.4s;
-}
-.toggle_input:checked + .toggle_label {
-    background-color: #2563eb; /* bg-blue-600 */
-}
-.toggle_input:checked + .toggle_label:after {
-    left: 28px; /* 52px - 20px - 4px */
-}
-
 
 /* ★ 新規: L4オプションコンテナ */
 .options-level-4-container {
     padding: 1.5rem;
     background-color: #f8fafc; /* bg-slate-50 */
     border-top: 1px solid #e2e8f0;
-    display: none; /* JSで表示 */
+    display: none; /* JSで制御 */
     animation: fadeIn 0.5s ease;
     flex-basis: 100%; /* ★ 改行 */
     width: 100%;
+}
+/* ★追加: JSでshowクラスを付与されたら表示 */
+.options-level-4-container.show {
+    display: block;
 }
 .options-level-4-title {
     font-size: 1.125rem; /* text-lg */
@@ -481,7 +494,8 @@ body {
 .l4-dropdown-wrapper {
     position: relative;
 }
-.l4-dropdown-label {
+/* ★修正: L4汎用ラベル (ドロップダウンラベルから汎用化) */
+.l4-label {
     font-size: 0.875rem;
     font-weight: 500;
     color: #334155;
@@ -514,7 +528,7 @@ body {
     max-height: 10rem;
     overflow-y: auto;
     box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-    display: none; /* JSでトグル */
+    display: none; /* JSで制御 */
 }
 .l4-dropdown-item {
     display: block;
@@ -531,6 +545,10 @@ body {
     color: #1e40af;
     font-weight: 600;
 }
+/* ★追加: JSでshowクラスを付与されたら表示 */
+.l4-dropdown-list.show {
+    display: block;
+}
 
 
 /* 製品詳細コンテナ */
@@ -540,8 +558,12 @@ body {
     padding: 1.5rem;
     background-color: #ffffff; /* bg-white */
     border-top: 1px solid #e2e8f0; /* border-slate-200 */
-    display: none; /* JSでトグル */
+    display: none; /* JSで制御 */
     animation: fadeIn 0.5s ease forwards;
+}
+/* ★追加: JSでshowクラスを付与されたら表示 */
+.product-details-container.show {
+    display: block;
 }
 .product-details-container h2 {
     font-size: 1.5rem; /* text-2xl */
@@ -621,13 +643,17 @@ body {
     background-color: #0f172a; /* bg-slate-900 */
     color: #f9fafb; /* bg-gray-50 */
     padding: 1.5rem 1.5rem; /* py-6 px-6 */
-    box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1); 
     z-index: 50;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
+    display: none; /* JSで制御 */
+}
+.model-footer.show {
+    display: flex;
 }
 .model-footer-title {
     font-size: 1rem; /* text-base */
@@ -716,11 +742,14 @@ body {
     position: fixed;
     inset: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
+    display: none; /* JSで制御 */
     align-items: center;
     justify-content: center;
     z-index: 100;
     animation: fadeIn 0.2s ease;
+}
+.model-dropdown-overlay.show {
+    display: flex;
 }
 .model-dropdown-content {
     background-color: #ffffff;
@@ -801,11 +830,14 @@ body {
     position: fixed;
     inset: 0;
     background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
+    display: none; /* JSで制御 */
     align-items: center;
     justify-content: center;
     z-index: 1100;
     animation: fadeIn 0.2s ease;
+}
+.quick-select-modal-overlay.show {
+    display: flex;
 }
 .quick-select-modal-content {
     background-color: #ffffff;
@@ -927,11 +959,14 @@ body {
     position: fixed;
     inset: 0;
     background-color: rgba(0, 0, 0, 0.75);
-    display: flex;
+    display: none; /* JSで制御 */
     align-items: center;
     justify-content: center;
     z-index: 1200;
     animation: fadeIn 0.2s ease;
+}
+.model-viewer-overlay.show {
+    display: flex;
 }
 .model-viewer-content {
     position: relative;
